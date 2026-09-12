@@ -1,0 +1,51 @@
+# === Segredos e ambiente local (NUNCA versionar) ===
+.env
+.env.*
+!.env.example
+*.env.local
+
+# Arquivos de segredos / credenciais locais
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+*.secret
+*.secrets
+
+# === Artefatos de build/deploy AWS SAM ===
+.aws-sam/
+
+# === Ambientes virtuais Python ===
+.venv/
+venv/
+env/
+
+# === Artefatos Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# === Cache de testes / ferramentas ===
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# === Registros por execução da eval de eficácia (observação, não versionar) ===
+tests/eval/.results/
+
+# === Relatórios de qualidade gerados (generate_quality_report.py) ===
+reports/
+code/reports/
+
+# === Diversos ===
+sh.exe.stackdump
+*.log
+.DS_Store

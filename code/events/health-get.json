@@ -1,0 +1,43 @@
+{
+  "resource": "/health",
+  "path": "/health",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Host": "localhost",
+    "User-Agent": "sam-local-invoke",
+    "X-Forwarded-Proto": "https",
+    "X-Forwarded-Port": "443"
+  },
+  "multiValueHeaders": {
+    "Accept": ["application/json"],
+    "Host": ["localhost"],
+    "User-Agent": ["sam-local-invoke"],
+    "X-Forwarded-Proto": ["https"],
+    "X-Forwarded-Port": ["443"]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "healthget",
+    "resourcePath": "/health",
+    "httpMethod": "GET",
+    "path": "/prod/health",
+    "stage": "prod",
+    "domainName": "localhost",
+    "apiId": "local0api0health",
+    "requestId": "00000000-0000-4000-8000-000000000000",
+    "protocol": "HTTP/1.1",
+    "requestTime": "01/Jan/2025:00:00:00 +0000",
+    "requestTimeEpoch": 1735689600000,
+    "accountId": "123456789012",
+    "identity": {
+      "sourceIp": "127.0.0.1",
+      "userAgent": "sam-local-invoke"
+    }
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

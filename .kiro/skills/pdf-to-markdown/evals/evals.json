@@ -1,0 +1,23 @@
+{
+  "skill_name": "pdf-to-markdown",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Converte o arquivo recursos/brand/Brandbook.pdf para markdown. Preciso extrair todo o conteúdo incluindo as imagens.",
+      "expected_output": "Arquivo markdown criado com o conteúdo do brandbook, imagens extraídas em pasta separada e referenciadas no markdown",
+      "files": ["recursos/brand/Brandbook.pdf"]
+    },
+    {
+      "id": 2,
+      "prompt": "Tenho um PDF aqui que preciso transformar em markdown para editar. É o Brandbook.pdf na pasta recursos/brand. Pode converter?",
+      "expected_output": "Conversão realizada com sucesso, arquivo .md criado no mesmo diretório",
+      "files": ["recursos/brand/Brandbook.pdf"]
+    },
+    {
+      "id": 3,
+      "prompt": "Preciso extrair o texto e as imagens do brandbook em formato markdown para documentar no repositório",
+      "expected_output": "Markdown gerado com estrutura preservada e imagens extraídas",
+      "files": ["recursos/brand/Brandbook.pdf"]
+    }
+  ]
+}

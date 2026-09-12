@@ -1,0 +1,1 @@
+"""Adapter de entrada CLI."""

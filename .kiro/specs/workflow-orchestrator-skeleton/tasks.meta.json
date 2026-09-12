@@ -1,0 +1,395 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Preparar dependências e fronteiras de arquitetura": [
+      {
+        "executionId": "da49fe97-b15a-4782-851d-18e7f8471b24",
+        "chatSessionId": "sess_8e54f8c4-552a-4b9e-8847-a0e17b852439",
+        "timestamp": 1789141415360
+      },
+      {
+        "executionId": "da49fe97-b15a-4782-851d-18e7f8471b24",
+        "chatSessionId": "sess_8e54f8c4-552a-4b9e-8847-a0e17b852439",
+        "timestamp": 1789141761897
+      }
+    ],
+    "1.2 Estender o import-linter (confinar Agno + YAML fora do domain/interface)": [
+      {
+        "executionId": "d4f0fd23-16d4-47be-944e-3714b4665bd3",
+        "chatSessionId": "sess_6a5d355b-4c5f-482b-9044-58cd0249a9af",
+        "timestamp": 1789141977946
+      },
+      {
+        "executionId": "d4f0fd23-16d4-47be-944e-3714b4665bd3",
+        "chatSessionId": "sess_6a5d355b-4c5f-482b-9044-58cd0249a9af",
+        "timestamp": 1789142097619
+      }
+    ],
+    "2.1 Implementar `LayerId` e `RunId` (value objects puros)": [
+      {
+        "executionId": "0dfce1df-b73d-4772-9c38-6c7b32147ecf",
+        "chatSessionId": "sess_e70810a9-51a6-4a84-b24d-0dce52f1bf60",
+        "timestamp": 1789142257725
+      },
+      {
+        "executionId": "0dfce1df-b73d-4772-9c38-6c7b32147ecf",
+        "chatSessionId": "sess_e70810a9-51a6-4a84-b24d-0dce52f1bf60",
+        "timestamp": 1789142341188
+      }
+    ],
+    "2.2 Implementar `Severity` (ordem total para priorização)": [
+      {
+        "executionId": "0dfce1df-b73d-4772-9c38-6c7b32147ecf",
+        "chatSessionId": "sess_e70810a9-51a6-4a84-b24d-0dce52f1bf60",
+        "timestamp": 1789142267475
+      },
+      {
+        "executionId": "0dfce1df-b73d-4772-9c38-6c7b32147ecf",
+        "chatSessionId": "sess_e70810a9-51a6-4a84-b24d-0dce52f1bf60",
+        "timestamp": 1789142341763
+      }
+    ],
+    "2. Implementar identidades e severidade no domain": [
+      {
+        "executionId": "0dfce1df-b73d-4772-9c38-6c7b32147ecf",
+        "chatSessionId": "sess_e70810a9-51a6-4a84-b24d-0dce52f1bf60",
+        "timestamp": 1789142342044
+      }
+    ],
+    "3.1 Implementar `QATargetManifest` (VO puro)": [
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142485981
+      },
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142676244
+      }
+    ],
+    "3.2 Implementar `ExecutionPlan` e `PlannedLayer` (VOs puros)": [
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142490235
+      },
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142677561
+      }
+    ],
+    "3.3 Implementar `LayerEvidence` e `Finding` (VOs puros, sem veredito)": [
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142491648
+      },
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142678871
+      }
+    ],
+    "3.4 Implementar `RunResult`, `RunState` e `SkippedWork` (VOs puros)": [
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142492766
+      },
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142680034
+      }
+    ],
+    "3. Implementar os value objects de domínio da orquestração": [
+      {
+        "executionId": "eb44094e-352b-4809-95fc-f67f8743e366",
+        "chatSessionId": "sess_f4bf28b2-7e91-4240-b490-f693f2cb4c6d",
+        "timestamp": 1789142680235
+      }
+    ],
+    "4. Estender os erros de domínio da orquestração": [
+      {
+        "executionId": "5f6954b2-3980-42b6-9b90-586253b0213b",
+        "chatSessionId": "sess_47705f23-e485-48b9-84ea-6ca61a4a2243",
+        "timestamp": 1789143141139
+      },
+      {
+        "executionId": "5f6954b2-3980-42b6-9b90-586253b0213b",
+        "chatSessionId": "sess_47705f23-e485-48b9-84ea-6ca61a4a2243",
+        "timestamp": 1789143214131
+      }
+    ],
+    "5. Definir os ports (contratos puros) no domain": [
+      {
+        "executionId": "363a03da-30a4-4d9f-92a6-d9c8c559f48f",
+        "chatSessionId": "sess_5a80073b-eb87-4335-8574-4d77ed7c7ed9",
+        "timestamp": 1789143381091
+      },
+      {
+        "executionId": "363a03da-30a4-4d9f-92a6-d9c8c559f48f",
+        "chatSessionId": "sess_5a80073b-eb87-4335-8574-4d77ed7c7ed9",
+        "timestamp": 1789143493025
+      }
+    ],
+    "5.2 Implementar `RunStateStore` (Protocol)": [
+      {
+        "executionId": "44024f6c-bc92-4aac-9143-166e7131b9e8",
+        "chatSessionId": "sess_928a6c4b-f825-43e7-8a0a-d6c017122c26",
+        "timestamp": 1789143613634
+      },
+      {
+        "executionId": "44024f6c-bc92-4aac-9143-166e7131b9e8",
+        "chatSessionId": "sess_928a6c4b-f825-43e7-8a0a-d6c017122c26",
+        "timestamp": 1789143732120
+      }
+    ],
+    "6.1 Implementar `plan_by_risk`": [
+      {
+        "executionId": "b2956a6e-8dd0-40e9-bd96-61f7599312b1",
+        "chatSessionId": "sess_051d6f5a-cc25-4daf-87d8-9d8e027e3399",
+        "timestamp": 1789143896901
+      },
+      {
+        "executionId": "b2956a6e-8dd0-40e9-bd96-61f7599312b1",
+        "chatSessionId": "sess_051d6f5a-cc25-4daf-87d8-9d8e027e3399",
+        "timestamp": 1789144001589
+      }
+    ],
+    "6. Implementar o Risk_Planner (Executor_Function)": [
+      {
+        "executionId": "b2956a6e-8dd0-40e9-bd96-61f7599312b1",
+        "chatSessionId": "sess_051d6f5a-cc25-4daf-87d8-9d8e027e3399",
+        "timestamp": 1789144001865
+      }
+    ],
+    "6.2 Escrever teste de propriedade do determinismo do Risk_Planner (Property 1)": [
+      {
+        "executionId": "2bc63ca6-d64d-416f-9008-83589759faa7",
+        "chatSessionId": "sess_025fb63c-c134-402a-9c9f-516ff6fe8f9e",
+        "timestamp": 1789144147536
+      },
+      {
+        "executionId": "2bc63ca6-d64d-416f-9008-83589759faa7",
+        "chatSessionId": "sess_025fb63c-c134-402a-9c9f-516ff6fe8f9e",
+        "timestamp": 1789144253437
+      }
+    ],
+    "6.3 Escrever teste de propriedade de prioridades e cobertura (Property 2)": [
+      {
+        "executionId": "d0365f00-183c-44d7-84fc-0b65ae8a856b",
+        "chatSessionId": "sess_aa9c3260-f469-4738-af31-aa9a8d7058b2",
+        "timestamp": 1789144305940
+      },
+      {
+        "executionId": "d0365f00-183c-44d7-84fc-0b65ae8a856b",
+        "chatSessionId": "sess_aa9c3260-f469-4738-af31-aa9a8d7058b2",
+        "timestamp": 1789144747394
+      }
+    ],
+    "7. Implementar o Evidence_Consolidator (Executor_Function)": [
+      {
+        "executionId": "d1b9e524-f6df-42e2-bde0-b2f7a123e10f",
+        "chatSessionId": "sess_3e9c2d57-9911-44c1-baaa-8d2f976fb1d3",
+        "timestamp": 1789144831292
+      },
+      {
+        "executionId": "d1b9e524-f6df-42e2-bde0-b2f7a123e10f",
+        "chatSessionId": "sess_3e9c2d57-9911-44c1-baaa-8d2f976fb1d3",
+        "timestamp": 1789144955777
+      }
+    ],
+    "7.1 Implementar `consolidate`": [
+      {
+        "executionId": "d1b9e524-f6df-42e2-bde0-b2f7a123e10f",
+        "chatSessionId": "sess_3e9c2d57-9911-44c1-baaa-8d2f976fb1d3",
+        "timestamp": 1789144955414
+      }
+    ],
+    "8. Implementar o Advisory_Judge (determinístico mínimo)": [
+      {
+        "executionId": "fc7ddc97-f51e-43e7-b520-07bbad5ca806",
+        "chatSessionId": "sess_984131f5-e992-48c5-afa8-2b0611c0dc6e",
+        "timestamp": 1789145081697
+      },
+      {
+        "executionId": "fc7ddc97-f51e-43e7-b520-07bbad5ca806",
+        "chatSessionId": "sess_984131f5-e992-48c5-afa8-2b0611c0dc6e",
+        "timestamp": 1789145212181
+      }
+    ],
+    "9. Implementar o Feedback_Dispatcher (Executor_Function)": [
+      {
+        "executionId": "2059d821-b6f7-4a9e-94f1-5f71f545ffdc",
+        "chatSessionId": "sess_e5846271-9178-4cff-80c1-ee3e1cffd03f",
+        "timestamp": 1789145270940
+      },
+      {
+        "executionId": "2059d821-b6f7-4a9e-94f1-5f71f545ffdc",
+        "chatSessionId": "sess_e5846271-9178-4cff-80c1-ee3e1cffd03f",
+        "timestamp": 1789145410406
+      }
+    ],
+    "11.1 Implementar o schema e validador do `QA_Target_Manifest`": [
+      {
+        "executionId": "d4c0004b-4d6e-430a-bceb-869b268bee16",
+        "chatSessionId": "sess_722dfbc9-d72b-444b-8172-e5e54a0112d7",
+        "timestamp": 1789145633323
+      },
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789170749565
+      },
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789171369237
+      }
+    ],
+    "11. Implementar o schema, parser e discovery do manifesto (infrastructure)": [
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789170744468
+      },
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789171370353
+      }
+    ],
+    "11.2 Implementar o `Manifest_Parser` (qa-target.yaml → VO)": [
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789170750874
+      },
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789171369368
+      }
+    ],
+    "11.3 Implementar o `Target_Discovery` (mínimo/determinístico)": [
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789170751942
+      },
+      {
+        "executionId": "a7ea2884-180e-422d-84ef-59beb53a3f00",
+        "chatSessionId": "sess_36872df9-6075-4d7d-8e56-eeb7fb28e559",
+        "timestamp": 1789171370124
+      }
+    ],
+    "12.1 Implementar o `LayerRegistry`": [
+      {
+        "executionId": "8d0afe10-673d-4207-8ac7-929281db5eb5",
+        "chatSessionId": "sess_9a6def66-3ffd-443b-bbd6-3f4af6aecf7d",
+        "timestamp": 1789171722657
+      },
+      {
+        "executionId": "8d0afe10-673d-4207-8ac7-929281db5eb5",
+        "chatSessionId": "sess_9a6def66-3ffd-443b-bbd6-3f4af6aecf7d",
+        "timestamp": 1789171911665
+      }
+    ],
+    "12.2 Implementar o `AILayerStub`": [
+      {
+        "executionId": "8d0afe10-673d-4207-8ac7-929281db5eb5",
+        "chatSessionId": "sess_9a6def66-3ffd-443b-bbd6-3f4af6aecf7d",
+        "timestamp": 1789171922498
+      },
+      {
+        "executionId": "8d0afe10-673d-4207-8ac7-929281db5eb5",
+        "chatSessionId": "sess_9a6def66-3ffd-443b-bbd6-3f4af6aecf7d",
+        "timestamp": 1789172134160
+      }
+    ],
+    "12. Implementar o LayerRegistry e o AI_Layer_Stub (infrastructure)": [
+      {
+        "executionId": "8d0afe10-673d-4207-8ac7-929281db5eb5",
+        "chatSessionId": "sess_9a6def66-3ffd-443b-bbd6-3f4af6aecf7d",
+        "timestamp": 1789172134415
+      }
+    ],
+    "13. Implementar os primitivos de orquestração (Router, Cost_Condition, Parallel)": [
+      {
+        "executionId": "bda303b4-4b4d-470c-a9e8-497c31a670e0",
+        "chatSessionId": "sess_45394f3f-5b20-4372-b807-8725f4d7b127",
+        "timestamp": 1789172342138
+      },
+      {
+        "executionId": "bda303b4-4b4d-470c-a9e8-497c31a670e0",
+        "chatSessionId": "sess_45394f3f-5b20-4372-b807-8725f4d7b127",
+        "timestamp": 1789173095556
+      }
+    ],
+    "14.1 Implementar `InMemoryRunStateStore`": [
+      {
+        "executionId": "e8154b7d-7ea3-4ead-a474-aa9b74b0e187",
+        "chatSessionId": "sess_55da526e-0597-4448-9443-48d5f4cbd9c6",
+        "timestamp": 1789173204884
+      },
+      {
+        "executionId": "e8154b7d-7ea3-4ead-a474-aa9b74b0e187",
+        "chatSessionId": "sess_55da526e-0597-4448-9443-48d5f4cbd9c6",
+        "timestamp": 1789173301299
+      }
+    ],
+    "14. Implementar o InMemoryRunStateStore (infrastructure)": [
+      {
+        "executionId": "e8154b7d-7ea3-4ead-a474-aa9b74b0e187",
+        "chatSessionId": "sess_55da526e-0597-4448-9443-48d5f4cbd9c6",
+        "timestamp": 1789173301650
+      }
+    ],
+    "16.1 Implementar `build_orchestrator`": [
+      {
+        "executionId": "084f3f01-c73a-4d51-b7b5-9a27b1652f61",
+        "chatSessionId": "sess_1fb39d48-9187-46fd-a615-e03bea2e1590",
+        "timestamp": 1789175572509
+      },
+      {
+        "executionId": "084f3f01-c73a-4d51-b7b5-9a27b1652f61",
+        "chatSessionId": "sess_1fb39d48-9187-46fd-a615-e03bea2e1590",
+        "timestamp": 1789176474563
+      }
+    ],
+    "16.2 Estender o composition_root (wiring do orquestrador)": [
+      {
+        "executionId": "084f3f01-c73a-4d51-b7b5-9a27b1652f61",
+        "chatSessionId": "sess_1fb39d48-9187-46fd-a615-e03bea2e1590",
+        "timestamp": 1789176479500
+      }
+    ],
+    "16. Implementar e integrar o Orchestrator_Workflow (Agno Workflow)": [
+      {
+        "executionId": "084f3f01-c73a-4d51-b7b5-9a27b1652f61",
+        "chatSessionId": "sess_1fb39d48-9187-46fd-a615-e03bea2e1590",
+        "timestamp": 1789176480634
+      }
+    ],
+    "17. Estender o teste de fronteiras de arquitetura": [
+      {
+        "executionId": "4505b5d9-7534-482e-9a93-69a9823f1571",
+        "chatSessionId": "sess_0223413c-c551-4ca0-8251-2df1fb3524ac",
+        "timestamp": 1789176691254
+      },
+      {
+        "executionId": "05e13b1c-7087-4d92-9707-dede32f11172",
+        "chatSessionId": "sess_627557fb-84d5-4c5c-932c-19b98424ac8a",
+        "timestamp": 1789176723041
+      },
+      {
+        "executionId": "05e13b1c-7087-4d92-9707-dede32f11172",
+        "chatSessionId": "sess_627557fb-84d5-4c5c-932c-19b98424ac8a",
+        "timestamp": 1789177103526
+      }
+    ]
+  }
+}
