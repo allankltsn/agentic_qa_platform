@@ -50,6 +50,8 @@ Isso injeta o conteúdo do steering no contexto da sessão atual, sem afetar out
 | 10 | `10-configuracao-iac.md` | `fileMatch` | `**/Dockerfile,**/samconfig.{toml,yaml},**/.github/workflows/*.yml,**/requirements.txt,**/pyproject.toml,**/package.json` | Configuração e IaC: Dockerfile, samconfig, GitHub Actions, dependências Python/Node.js |
 | 11 | `11-testes-qualidade.md` | `fileMatch` | `**/test_*.py,**/*_test.py,**/*.test.{ts,js},**/*.spec.{ts,js}` | Testes e qualidade: pytest, Jest/Vitest, estratégias de teste AWS, cobertura |
 | 12 | `12-organizacao-dataclasses.md` | `fileMatch` | `**/*.py` | Organização de dataclasses por papel arquitetural: DTO, entidade, objeto-valor, schema; regra de decisão finalidade→pasta e `dataclass` vs Pydantic |
+| 13 | `13-execucao-terminal.md` | `always` | — | Disciplina operacional de execução no terminal: sem loops/gambiarra, validar shell/comando, um comando por vez, git explícito, verificação honesta |
+| 14 | `14-nomenclatura-specs.md` | `always` | — | Nomenclatura de specs com prefixo ordinal `<N>-<nome>` para ordenar a pasta e tornar o fluxo de execução explícito |
 
 ## Contexto por Cenário de Desenvolvimento
 

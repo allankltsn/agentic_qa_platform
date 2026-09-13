@@ -1,7 +1,7 @@
 # ADR-001 — Padrão de orquestração: Workflow-first
 
-- **Status:** Proposta (candidata; a ser confirmada na Sprint 1 — Arquitetura)
-- **Data:** 2026-09-10
+- **Status:** Aceita (confirmada no fechamento da Sprint 1 — Arquitetura)
+- **Data:** 2026-09-10 (aceita em 2026-09-12)
 - **Contexto do projeto:** QA Platform (`qa-platform/PROJECT.md`, seção 8.1)
 - **Decisores:** autor (Product Owner / Tech Lead), Kiro (assistente)
 
