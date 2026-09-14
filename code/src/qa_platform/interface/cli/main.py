@@ -23,7 +23,6 @@ from __future__ import annotations
 import json
 import os
 import sys
-from typing import Optional
 
 from qa_platform.application.get_health_status import GetHealthStatus
 from qa_platform.infrastructure.config import load_settings
@@ -36,7 +35,11 @@ _APP_IMPORT_STRING = "qa_platform.interface.api.main:app"
 
 _HOST_ENV = "HOST"
 _PORT_ENV = "PORT"
-_DEFAULT_HOST = "0.0.0.0"
+# Bind em todas as interfaces é o default esperado para o servidor rodando
+# dentro de um container/ambiente gerenciado, onde o isolamento de rede é
+# imposto pela plataforma (não pelo processo). Bandit sinaliza B104 — falso
+# positivo neste contexto, suprimido pontualmente.
+_DEFAULT_HOST = "0.0.0.0"  # nosec B104
 _DEFAULT_PORT = 8000
 
 
@@ -64,7 +67,65 @@ def _health() -> int:
     return 0
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def _suggest_manifest(argv: list[str]) -> int:
+    """Enriquece um Draft (Fase 2, opt-in) e imprime o AnnotatedDraft em JSON.
+
+    Adapter fino: parseia o caminho do Draft, monta o enricher via composition
+    root e delega ao caso de uso ``suggest_manifest``. Não contém regra de
+    negócio nem importa ``agno``/``infrastructure`` diretamente — o
+    ``LLMEnricher`` é alcançado apenas por ``composition_root.build_enricher()``
+    (contrato ``agno-confinado``).
+
+    Os imports do caso de uso e do builder são **tardios** (dentro da função)
+    para manter o comando ``health`` funcional sem exigir a montagem completa e
+    para não puxar a cadeia do enricher quando o subcomando não é usado.
+
+    Exit codes (design.md, "Subcomando CLI ``suggest-manifest``"):
+
+    - ``0``: sucesso — imprime ``annotated.to_json()`` no stdout (Req 6.4).
+    - ``2``: :class:`InvalidDraftError` (inclui Draft ausente) — erro em JSON no
+      stderr, sem stack trace (Req 6.5).
+    - ``3``: :class:`EnrichmentError` (inclui timeout/provider ausente/blank via
+      ``EnrichmentTimeoutError``, subclasse) — erro em JSON no stderr, sem stack
+      trace (Req 6.6, 9.2).
+
+    Todo erro é emitido como ``{"error": str(exc)}`` no stderr, nunca stack trace.
+    """
+    # Import tardio: mantém ``health`` leve e a CLI sem importar ``agno`` direto.
+    from qa_platform.application.suggest_manifest import (
+        EnrichmentError,
+        InvalidDraftError,
+        suggest_manifest,
+    )
+    from qa_platform.composition_root import build_enricher
+
+    if not argv or not argv[0].strip():
+        # Draft ausente: alinhado a InvalidDraftError como "Draft ausente" (exit 2).
+        print(
+            json.dumps(
+                {"error": "caminho do Draft ausente"},
+                ensure_ascii=False,
+            ),
+            file=sys.stderr,
+        )
+        return 2
+
+    draft_path = argv[0]
+    try:
+        annotated = suggest_manifest(draft_path, build_enricher())
+    except InvalidDraftError as exc:
+        print(json.dumps({"error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 2
+    except EnrichmentError as exc:
+        # Cobre também EnrichmentTimeoutError (subclasse) e provider ausente/blank.
+        print(json.dumps({"error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 3
+
+    print(annotated.to_json())
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
     """Parseia o subcomando e delega. Retorna o exit code (0 em caso de sucesso)."""
     argv = argv if argv is not None else sys.argv[1:]
     command = argv[0] if argv else "health"
@@ -72,9 +133,14 @@ def main(argv: Optional[list[str]] = None) -> int:
         return _serve()
     if command == "health":
         return _health()
+    if command == "suggest-manifest":
+        return _suggest_manifest(argv[1:])
     print(
         json.dumps(
-            {"error": f"comando desconhecido: {command!r}", "usage": "serve | health"},
+            {
+                "error": f"comando desconhecido: {command!r}",
+                "usage": "serve | health | suggest-manifest",
+            },
             ensure_ascii=False,
         ),
         file=sys.stderr,

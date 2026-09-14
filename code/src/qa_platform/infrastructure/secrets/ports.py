@@ -8,7 +8,7 @@ o resolver testável sem rede e isola dependências concretas (Requisito 7.1).
 
 from __future__ import annotations
 
-from typing import Optional, Protocol
+from typing import Protocol
 
 
 class SecretsProvider(Protocol):
@@ -18,6 +18,6 @@ class SecretsProvider(Protocol):
     implementações NUNCA logam o valor retornado (Requisito 7.1).
     """
 
-    def get(self, key: str) -> Optional[str]:
+    def get(self, key: str) -> str | None:
         """Retorna o valor da chave, ou ``None`` se ausente/vazio."""
         ...

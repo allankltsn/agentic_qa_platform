@@ -8,9 +8,9 @@ padrão, sem import de framework de orquestração (Agno), parser de YAML ou SDK
 de nuvem (Requisito 12.1).
 """
 
+from qa_platform.domain.entities.run_result import RunResult, RunState
 from qa_platform.domain.exceptions import RunIdConflictError, RunNotFoundError
 from qa_platform.domain.value_objects.ids import RunId
-from qa_platform.domain.entities.run_result import RunResult, RunState
 
 
 class InMemoryRunStateStore:

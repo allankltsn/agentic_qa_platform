@@ -68,7 +68,7 @@ class _FakeLayer:
     def layer_id(self) -> LayerId:
         return self._layer_id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         return LayerEvidence(
             layer_id=self._layer_id,
             metrics={"planned_layers": float(len(plan.layers))},
@@ -86,14 +86,14 @@ class _NonConformingLayer:
     def layer_id(self) -> LayerId:
         return self._layer_id
 
-    def execute(self, plan, manifest):  # noqa: ANN001, ANN201
+    def execute(self, plan, manifest):
         return {"not": "an evidence"}
 
 
 class _ForbiddenLLM:
     """Cliente LLM proibido: falha o teste se o controle de fluxo o invocar (Req 1.6)."""
 
-    def __getattr__(self, name: str):  # noqa: ANN401
+    def __getattr__(self, name: str):
         raise AssertionError(
             f"controle de fluxo não pode invocar um modelo de linguagem (acesso a {name})"
         )
@@ -106,7 +106,7 @@ class _FailingStartStore(InMemoryRunStateStore):
         super().__init__()
         self.steps_touched = False
 
-    def start(self, run_id: RunId, state) -> None:  # noqa: ANN001
+    def start(self, run_id: RunId, state) -> None:
         raise RuntimeError("falha simulada de persistência inicial")
 
 
@@ -219,7 +219,7 @@ def test_falha_de_step_interrompe_e_registra() -> None:
         def layer_id(self) -> LayerId:
             return _AI
 
-        def execute(self, plan, manifest):  # noqa: ANN001, ANN201
+        def execute(self, plan, manifest):
             raise RuntimeError("falha interna da camada")
 
     store = _BoomStore()

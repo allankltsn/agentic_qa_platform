@@ -19,10 +19,10 @@ agente real é instanciado.
 
 from __future__ import annotations
 
-from qa_platform.domain.value_objects.evidence import Finding, LayerEvidence
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest
+from qa_platform.domain.value_objects.evidence import Finding, LayerEvidence
+from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.value_objects.severity import Severity
 from qa_platform.infrastructure.secrets.resolver import (
     MissingSecretError,

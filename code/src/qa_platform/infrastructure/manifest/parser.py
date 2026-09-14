@@ -15,14 +15,25 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
+# PyYAML (importado como `yaml`) não publica type stubs. code/pyproject.toml já
+# ignora esse import via [[tool.mypy.overrides]], mas o hook mypy do pre-commit
+# roda a partir da raiz do repo (lê o pyproject de devtools, sem essa config).
+# O ignore inline honra a mesma decisão em ambos os contextos, sem afrouxar a
+# checagem do resto do módulo.
+import yaml  # type: ignore[import-untyped]
 
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import (
     CostParameters,
     QATargetManifest,
     RiskParameters,
 )
+from qa_platform.domain.value_objects.discovery import (
+    DetectedItem,
+    DiscoveryInfo,
+    Framework,
+)
+from qa_platform.domain.value_objects.golden_case import GoldenCase
+from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.infrastructure.manifest.schema import validate_manifest
 
 
@@ -91,10 +102,95 @@ def _to_domain(raw: dict[str, Any]) -> QATargetManifest:
         for layer_id, params in raw.get("cost_parameters", {}).items()
     }
 
+    expected_domain_raw = raw.get("expected_domain")
+    expected_domain = (
+        str(expected_domain_raw) if expected_domain_raw is not None else None
+    )
+
     return QATargetManifest(
         target_ref=str(target["ref"]),
         target_version=str(target["version"]),
         applicable_layers=applicable_layers,
         risk_parameters=risk_parameters,
         cost_parameters=cost_parameters,
+        discovery=_to_discovery(raw.get("discovery")),
+        expected_domain=expected_domain,
+        golden_set=_to_golden_set(raw.get("golden_set")),
+    )
+
+
+def _to_discovery(raw: Any) -> DiscoveryInfo:
+    """Mapeia o bloco ``discovery`` validado para o VO ``DiscoveryInfo``.
+
+    Campo opcional: ausente (ou ``None``) resulta em ``DiscoveryInfo.empty()``,
+    garantindo a retrocompatibilidade de código (Requisito 5.5). Assume o dict
+    já conforme o schema; o tipo do parser YAML não vaza (Requisito 5.5).
+
+    A serialização usa ``null``/``"agno"``/``"langgraph"`` para ``framework``,
+    enquanto o domínio usa ``Framework`` (``null`` ↦ ``Framework.NOT_DETECTED``).
+    """
+    if not isinstance(raw, dict):
+        return DiscoveryInfo.empty()
+
+    framework_raw = raw.get("framework")
+    framework = (
+        Framework(framework_raw)
+        if framework_raw is not None
+        else Framework.NOT_DETECTED
+    )
+
+    frameworks_detected = tuple(
+        Framework(value) for value in raw.get("frameworks_detected", ())
+    )
+
+    return DiscoveryInfo(
+        framework=framework,
+        frameworks_detected=frameworks_detected,
+        ambiguous=bool(raw.get("ambiguous", False)),
+        tools=_to_detected_items(raw.get("tools")),
+        prompts=_to_detected_items(raw.get("prompts")),
+        rag=_to_detected_items(raw.get("rag")),
+        fragility_note=str(raw.get("fragility_note", "")),
+    )
+
+
+def _to_detected_items(raw: Any) -> tuple[DetectedItem, ...]:
+    """Mapeia uma lista validada de itens detectados para ``DetectedItem``.
+
+    Ausente (ou não-lista) resulta em tupla vazia. Preserva a ordem declarada
+    no manifesto — a ordenação estável é responsabilidade de quem produz o
+    manifesto (heurísticas da Fase 1), não do parser.
+    """
+    if not isinstance(raw, list):
+        return ()
+    return tuple(
+        DetectedItem(
+            identifier=str(item["identifier"]),
+            source=str(item["source"]),
+        )
+        for item in raw
+    )
+
+
+def _to_golden_set(raw: Any) -> tuple[GoldenCase, ...]:
+    """Mapeia a lista ``golden_set`` validada para VOs ``GoldenCase``.
+
+    Campo opcional: ausente (ou não-lista) resulta em tupla vazia (Requisito
+    5.6). Preserva a ordem declarada no manifesto.
+    """
+    if not isinstance(raw, list):
+        return ()
+    return tuple(_to_golden_case(item) for item in raw)
+
+
+def _to_golden_case(raw: dict[str, Any]) -> GoldenCase:
+    """Mapeia um caso validado do golden set para o VO ``GoldenCase``.
+
+    Assume conformidade com o schema: ``input`` e ``expected`` obrigatórios;
+    ``note`` opcional com default vazio.
+    """
+    return GoldenCase(
+        input=str(raw["input"]),
+        expected=str(raw["expected"]),
+        note=str(raw.get("note", "")),
     )

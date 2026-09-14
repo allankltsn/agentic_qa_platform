@@ -9,8 +9,8 @@ coleções para garantir imutabilidade e comparação determinística.
 
 from dataclasses import dataclass, replace
 
-from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
+from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.value_objects.ids import RunId
 
 

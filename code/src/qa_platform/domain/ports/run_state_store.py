@@ -14,8 +14,8 @@ persistido (Requisito 11.5).
 
 from typing import Protocol
 
-from qa_platform.domain.value_objects.ids import RunId
 from qa_platform.domain.entities.run_result import RunResult, RunState
+from qa_platform.domain.value_objects.ids import RunId
 
 
 class RunStateStore(Protocol):

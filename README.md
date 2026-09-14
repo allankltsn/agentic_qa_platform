@@ -120,8 +120,10 @@ Catálogo completo em `code/.env.example`. Toggles usam `true`/`false`
 | `HOST` | não | `0.0.0.0` | Endereço de bind do servidor local (CLI `serve`). Default `0.0.0.0`. |
 | `PORT` | não | `8000` | Porta do servidor local (CLI `serve`). Default `8000`. |
 
-¹ `MODEL_PROVIDER` só é exigida quando a camada de IA é inicializada; não é
-necessária para subir apenas a rota de saúde do bootstrap atual.
+¹ `MODEL_PROVIDER` só é exigida quando a camada de IA é inicializada — por
+exemplo, pela Fase 2 da descoberta híbrida (`suggest-manifest`), que faz
+*fail-fast* (~5s) se ela estiver ausente/vazia. Não é necessária para subir
+apenas a rota de saúde nem para a Fase 1 (inspeção estática determinística).
 
 ## Rodar localmente
 
@@ -134,12 +136,45 @@ curl http://127.0.0.1:8000/health
 
 # health (default): resolve a config e imprime o HealthStatus em JSON, sem subir servidor.
 uv run python -m qa_platform.interface.cli.main health
+
+# suggest-manifest: Fase 2 (advisory, opt-in) — enriquece um Draft por LLM e
+# imprime o AnnotatedDraft em JSON. Exige MODEL_PROVIDER (ver Descoberta híbrida).
+uv run --env-file .env python -m qa_platform.interface.cli.main suggest-manifest draft.example.json
 ```
 
 A app ASGI é `qa_platform.interface.api.main:app` (a mesma servida pelo uvicorn
 localmente e pelo Mangum na Lambda), montada pelo `composition_root`. Se
 `SERVICE_VERSION` faltar, a inicialização falha rápido — a app nunca sobe sem a
 config obrigatória.
+
+## Descoberta híbrida de alvo (ADR-004)
+
+A inspeção do repositório-alvo acontece em **duas fases**, com uma fronteira dura
+entre elas (verificada por import-linter): a Fase 1 é determinística e nunca toca
+LLM; a Fase 2 é advisory e opt-in.
+
+- **Fase 1 — inspeção estática determinística** (`Static_Inspector`): lê o alvo
+  do filesystem local e detecta **por heurística** o framework de agente (Agno,
+  LangGraph, ambos → ambíguo, ou nenhum), além de tools, prompts e indícios de
+  RAG, cada achado com sua origem (`arquivo:identificador`). A saída é
+  **determinística e ordenada**, **não usa LLM nem rede** e **não lê
+  `MODEL_PROVIDER`/`SecretResolver`**. Campos não deriváveis por estática
+  permanecem `PENDING`. Por ser heurística, o resultado é **documental/advisory**
+  (carrega uma nota de fragilidade) e **não altera o roteamento** das camadas de
+  QA — exige revisão do desenvolvedor.
+
+- **Fase 2 — enriquecimento por LLM, opt-in** (`suggest-manifest`): a partir do
+  Draft determinístico da Fase 1, um agente sugere `expected_domain` e casos de
+  `golden_set`. As sugestões **nunca sobrescrevem** o Draft — entram marcadas
+  (`origin`, `state="pendente"`) para o desenvolvedor **aceitar, editar ou
+  descartar**. Resolve `MODEL_PROVIDER` **antes** de qualquer chamada (fail-fast
+  ~5s se ausente/vazio), aplica guardrail de escopo e tem timeout duro de 120s. A
+  CLI expõe isso com exit codes claros: `0` sucesso, `2` Draft inválido/ausente,
+  `3` falha de enriquecimento (inclui timeout e provider ausente).
+
+Esses campos aparecem no manifesto `qa-target.yaml` como **opcionais**
+(`discovery`, `expected_domain`, `golden_set`): manifestos existentes continuam
+válidos sem qualquer alteração.
 
 ## Ambiente local de dependências (Docker Compose)
 

@@ -12,7 +12,6 @@ objeto ``Settings`` (Requisito 7.4). ``SERVICE_VERSION`` permanece obrigatória
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from qa_platform.infrastructure.secrets.resolver import (
     MissingSecretError,
@@ -46,7 +45,7 @@ _REQUIRED = ("SERVICE_VERSION",)
 _OPTIONAL = {"LOG_LEVEL": "INFO", "ENVIRONMENT": "local"}
 
 
-def load_settings(resolver: Optional[SecretResolver] = None) -> Settings:
+def load_settings(resolver: SecretResolver | None = None) -> Settings:
     """Resolve a configuração da aplicação com falha rápida agregada.
 
     Sem ``resolver``, usa um :class:`SecretResolver` que consulta apenas as

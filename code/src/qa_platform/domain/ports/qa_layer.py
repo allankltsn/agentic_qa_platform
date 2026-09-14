@@ -14,10 +14,10 @@ Princípio advisory: a camada recebe o plano e o manifesto e produz
 
 from typing import Protocol, runtime_checkable
 
-from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest
+from qa_platform.domain.value_objects.evidence import LayerEvidence
+from qa_platform.domain.value_objects.ids import LayerId
 
 
 @runtime_checkable

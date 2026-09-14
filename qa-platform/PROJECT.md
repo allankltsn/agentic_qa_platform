@@ -249,18 +249,19 @@ confirmadas no fechamento da Sprint 1):
 |--------|------|------------|--------|
 | 0 | Fundação da idealização & visão de produto | `00-master-vision.md` + deck | ✅ Concluída |
 | 1 | Arquitetura de alto nível & modelo de extensibilidade (plugins) | `01-architecture.md` + ADRs + deck | ✅ Concluída (arquitetura implementada) |
-| 2 | Camada IA (parte 1): descoberta híbrida & contrato de alvo | `02-ai-layer-discovery.md` + exemplo `qa-target.yaml` + deck | ⏳ Próxima |
-| 3 | Camada IA (parte 2): avaliação & evidências (DeepEval/Promptfoo) | `03-ai-layer-eval.md` + mock de painel + deck | Pendente |
+| 2 | Camada IA (parte 1): descoberta híbrida & contrato de alvo | `02-ai-layer-discovery.md` + exemplo `qa-target.yaml` + deck | ✅ Concluída (descoberta híbrida implementada) |
+| 3 | Camada IA (parte 2): avaliação & evidências (DeepEval/Promptfoo) | `03-ai-layer-eval.md` + mock de painel + deck | ⏳ Próxima |
 | 4 | Motor de Feedbacks & integrações plugáveis | `04-feedback-engine.md` + contrato de plugin + deck | Pendente |
 | 5 | Frontend React & experiência (centralização, relatórios, histórico) | `05-frontend-ux.md` + wireframes + deck | Pendente |
 | 6 | Roadmap de expansão das demais camadas | `06-expansion-roadmap.md` + deck | Pendente |
 | 7 | Consolidação: idealização fechada & ponte para o spec | `00-master-vision.md` final + backlog de specs + deck | Pendente |
 
 Nota: camadas complexas (ex: IA) podem se estender por mais de uma sprint (já
-refletido nas Sprints 2 e 3). As Sprints 0 e 1 já têm base de código implementada e
-verificada (specs `executable-environment-bootstrap`, `workflow-orchestrator-skeleton`
-e `durable-run-state-store`); a Sprint 2 elabora a descoberta híbrida real sobre o
-`Target_Discovery` mínimo/determinístico já existente.
+refletido nas Sprints 2 e 3). As Sprints 0, 1 e 2 já têm base de código implementada e
+verificada (specs `executable-environment-bootstrap`, `workflow-orchestrator-skeleton`,
+`durable-run-state-store` e `hybrid-target-discovery`); a Sprint 2 elaborou a descoberta
+híbrida real sobre o `Target_Discovery` mínimo/determinístico da Sprint 1, e a Sprint 3
+avança para avaliação e evidências (DeepEval/Promptfoo).
 
 ## 12. Especificações do Agente (Orquestrador QA)
 

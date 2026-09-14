@@ -19,10 +19,10 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from qa_platform.domain.exceptions import UnknownLayerError
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest
+from qa_platform.domain.exceptions import UnknownLayerError
 from qa_platform.domain.ports.qa_layer import QALayerContract
+from qa_platform.domain.value_objects.ids import LayerId
 
 
 class LayerRegistry:

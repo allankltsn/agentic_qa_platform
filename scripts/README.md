@@ -21,6 +21,7 @@ dependencia/causa ausente, sem aplicar mudancas parciais.
 | `build.sh` | Build do artefato serverless (`sam build`). |
 | `deploy.sh` | Deploy do artefato serverless (`sam deploy`, usando `samconfig.toml`). |
 | `setup_code_quality.sh` | Instala e configura o tooling de qualidade de codigo num agente. |
+| `commit_flow.py` | Fluxo commit/push/PR guiado por um arquivo em `commits/` (conteudo redigido por fora; script so executa o git). |
 | `templates/pyproject.quality.toml` | Bloco base das secoes `[tool.*]` de qualidade, para mesclar ao `pyproject.toml`. |
 | `templates/.pre-commit-config.yaml` | Hooks de pre-commit (rodam local, sem token de LLM). |
 | `templates/import-linter.toml` | Contrato de arquitetura em camadas (import-linter). |
@@ -112,6 +113,85 @@ O detalhamento de cada ferramenta, o mapeamento com clean code/SOLID, a
 justificativa do gate local e a disciplina de versionamento (Conventional
 Commits + SemVer + Keep a Changelog) estao na skill
 `.kiro/skills/agno-code-quality-tools/SKILL.md` (fonte de verdade).
+
+---
+
+## 3. Fluxo de commit (`commit_flow.py`)
+
+Fluxo de versionamento simplificado com responsabilidades separadas:
+
+- O **conteudo** (mensagem de commit em Conventional Commits, entrada de
+  CHANGELOG, calculo de SemVer e descricao de PR) e redigido por fora e salvo em
+  **um arquivo por commit** dentro de `commits/`, nomeado `<N>-<nome>.md` (a
+  pasta e ignorada pelo git, exceto `_TEMPLATE.md` e `.gitkeep`).
+- O **script apenas executa** o fluxo git a partir desse arquivo. Por padrao:
+  `git add` -> `commit` -> `push` explicito -> remove o arquivo consumido. O PR
+  e **opt-in** via `--pr` (nunca abre sozinho, mesmo com a secao `PR` presente).
+
+### Como usar (comando minimalista)
+
+Rode a partir da **raiz do workspace** (onde vive o `.git`). O comando `commit`
+e um entry point declarado no `pyproject.toml` da raiz; `uv` cuida do ambiente
+(o dev-tooling nao tem dependencias):
+
+```bash
+# Padrao: add + commit + push (SEM PR). SEM argumento => arquivo de MAIOR numero.
+uv run commit
+
+# Igual ao anterior, e ALEM disso abre o PR (usa a secao PR do arquivo).
+uv run commit --pr
+
+# Escolher um arquivo especifico (nome com ou sem .md, ou um caminho).
+uv run commit 3-fix-parser
+
+# Ver o que faria, sem tocar no repo.
+uv run commit --dry-run
+
+# Sem confirmacao interativa.
+uv run commit --yes
+
+# So commit, sem push (preserva o arquivo de commit).
+uv run commit --no-push
+
+# Nao remover o arquivo de commit ao concluir.
+uv run commit --keep
+
+# Trocar a branch base do PR (default: main).
+uv run commit --base develop
+```
+
+> Alternativa equivalente (sem o entry point): `uv run --script
+> scripts/commit_flow.py [arquivo] [opcoes]`.
+
+### Selecao automatica do arquivo
+
+Nomeie os arquivos `<N>-<nome>.md` (`0-setup.md`, `1-fix.md`, ...). Sem
+argumento, o script escolhe SEMPRE o de maior `N`. Ao concluir com sucesso, o
+arquivo e removido (use `--keep` para preserva-lo).
+
+### Formato do arquivo de commit
+
+Copie `commits/_TEMPLATE.md`. Secoes delimitadas por `>>> NOME` ... `<<<`:
+
+| Secao | Obrigatoria | Uso |
+| --- | --- | --- |
+| `COMMIT` | sim | Mensagem completa (titulo + corpo), em Conventional Commits. |
+| `FILES` | nao | Um caminho por linha (`git add`). Vazia/ausente => `git add -A`. |
+| `CHANGELOG` | nao | Texto de referencia; **nao** e aplicado automaticamente. |
+| `PR` | nao | Titulo (1a linha) + descricao. Usada apenas quando voce passa `--pr`. |
+
+### Comportamento e garantias
+
+- **Fail-fast:** valida `git`, o repo e o arquivo ANTES de qualquer mudanca.
+- **Push explicito:** sempre `git push -u origin <branch-atual>` — nunca push
+  "pelado". Recusa commit/push direto em `main`/`master`.
+- **PR (opt-in `--pr`):** so abre PR quando voce passa `--pr` (e exige a secao
+  `PR` no arquivo). Usa `gh pr create` se o `gh` estiver instalado; caso
+  contrario, faz o push e imprime a URL de *compare* do GitHub (`base...branch`)
+  com o titulo pronto, alem do titulo/descricao para colar.
+- Nada staizado => erro claro (evita commit vazio silencioso).
+- **Limpeza:** o arquivo de commit e consumido (removido) ao concluir com
+  sucesso; `--no-push` e `--keep` preservam o arquivo.
 
 ## Comandos uteis
 

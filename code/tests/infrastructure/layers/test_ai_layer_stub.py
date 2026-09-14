@@ -8,9 +8,9 @@ ao plano sem ferramentas externas (7.2); entrada malformada → erro sem evidên
 (7.5); e fail-fast quando ``MODEL_PROVIDER`` está ausente (12.6).
 """
 
+import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
-import pytest
 
 from qa_platform.domain.entities.execution_plan import ExecutionPlan, PlannedLayer
 from qa_platform.domain.entities.manifest import QATargetManifest, RiskParameters

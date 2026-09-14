@@ -20,8 +20,8 @@ from collections.abc import Sequence
 from agno.workflow import Condition, Step  # tipo da Agno CONFINADO à infraestrutura
 from agno.workflow.types import StepInput
 
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest
+from qa_platform.domain.value_objects.ids import LayerId
 
 #: Motivos padrão do salto de trabalho caro (não-vazios por contrato, Req 5.2/5.5).
 REASON_MISSING_PARAMETERS = "parâmetros de custo ausentes"

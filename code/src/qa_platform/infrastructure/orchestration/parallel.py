@@ -28,11 +28,11 @@ from typing import Any
 
 from agno.workflow import Parallel, Step  # tipo da Agno CONFINADO à infraestrutura
 
-from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest
 from qa_platform.domain.ports.qa_layer import QALayerContract
+from qa_platform.domain.value_objects.evidence import LayerEvidence
+from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.infrastructure.orchestration.registry import LayerRegistry
 
 #: Máximo de camadas executadas simultaneamente (Requisito 4.1).

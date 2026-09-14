@@ -23,8 +23,8 @@ from typing import Any
 from agno.workflow import Router, Step  # tipo da Agno CONFINADO à infraestrutura
 from agno.workflow.types import StepInput
 
-from qa_platform.domain.exceptions import UnknownLayerError
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
+from qa_platform.domain.exceptions import UnknownLayerError
 from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.infrastructure.orchestration.registry import LayerRegistry
 

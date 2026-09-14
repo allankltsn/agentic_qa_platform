@@ -26,7 +26,7 @@ _PLAN = ExecutionPlan()
 class _CountingLayer:
     """Camada que registra a concorrência simultânea observada (Req 4.1)."""
 
-    def __init__(self, value: str, tracker: "_ConcurrencyTracker") -> None:
+    def __init__(self, value: str, tracker: _ConcurrencyTracker) -> None:
         self._id = LayerId(value)
         self._tracker = tracker
 
@@ -34,7 +34,7 @@ class _CountingLayer:
     def layer_id(self) -> LayerId:
         return self._id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         with self._tracker.enter():
             time.sleep(0.02)  # janela para sobreposição real de threads
         return LayerEvidence(layer_id=self._id)
@@ -49,21 +49,21 @@ class _ConcurrencyTracker:
         self.peak = 0
 
     class _Ctx:
-        def __init__(self, outer: "_ConcurrencyTracker") -> None:
+        def __init__(self, outer: _ConcurrencyTracker) -> None:
             self._outer = outer
 
-        def __enter__(self):  # noqa: ANN204
+        def __enter__(self):
             with self._outer._lock:
                 self._outer._active += 1
                 self._outer.peak = max(self._outer.peak, self._outer._active)
             return self
 
-        def __exit__(self, *exc):  # noqa: ANN002
+        def __exit__(self, *exc):
             with self._outer._lock:
                 self._outer._active -= 1
             return False
 
-    def enter(self) -> "_ConcurrencyTracker._Ctx":
+    def enter(self) -> _ConcurrencyTracker._Ctx:
         return self._Ctx(self)
 
 
@@ -75,7 +75,7 @@ class _FailingLayer:
     def layer_id(self) -> LayerId:
         return self._id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         raise RuntimeError("falha interna")
 
 
@@ -87,7 +87,7 @@ class _SlowLayer:
     def layer_id(self) -> LayerId:
         return self._id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         time.sleep(0.5)  # excede o timeout controlado do teste
         return LayerEvidence(layer_id=self._id)
 

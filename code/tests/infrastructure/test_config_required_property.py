@@ -26,8 +26,8 @@ from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from qa_platform.infrastructure.config import (
-    MissingConfigError,
     _REQUIRED,
+    MissingConfigError,
     load_settings,
 )
 

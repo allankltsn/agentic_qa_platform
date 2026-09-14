@@ -11,7 +11,6 @@ variável — nunca o valor de qualquer segredo (Requisitos 7.1, 7.2).
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 from qa_platform.infrastructure.secrets.ports import SecretsProvider
 
@@ -31,7 +30,7 @@ class SecretResolver:
     vence sobre o Secrets Manager (override local/CI).
     """
 
-    def __init__(self, secrets_provider: Optional[SecretsProvider] = None) -> None:
+    def __init__(self, secrets_provider: SecretsProvider | None = None) -> None:
         self._secrets = secrets_provider
 
     def resolve(
@@ -39,8 +38,8 @@ class SecretResolver:
         env_name: str,
         *,
         required: bool = True,
-        default: Optional[str] = None,
-    ) -> Optional[str]:
+        default: str | None = None,
+    ) -> str | None:
         """Resolve ``env_name`` pelo pipe de fallback.
 
         Ordem: (1) variável de ambiente, que sempre vence; (2) Secrets Manager,
