@@ -32,3 +32,46 @@ cost_parameters:
   security:
     risk_threshold: 0.6
     estimated_risk: 0.3
+
+# --- Campos da descoberta hibrida (ADR-004 / Sprint 2) ---
+# Todos opcionais e fora de `required`: um manifesto sem eles continua valido.
+
+# Bloco documental/derivado produzido pela inspecao estatica deterministica
+# (Fase 1). Nao altera o roteamento; heuristicas frageis exigem revisao humana.
+discovery:
+  # Framework detectado; null quando nao detectado.
+  framework: "agno"
+  # Mais de um item indicaria ambiguidade (ambiguous=true).
+  frameworks_detected:
+    - "agno"
+  ambiguous: false
+  # Tools detectadas por heuristica; cada item tem identifier + source (origem).
+  # Ordenacao total e estavel por (source, identifier).
+  tools:
+    - identifier: "search_docs"
+      source: "src/agent/tools.py"
+    - identifier: "run_query"
+      source: "src/agent/tools.py"
+  # Prompts detectados por heuristica.
+  prompts:
+    - identifier: "system_prompt"
+      source: "src/agent/prompts.py"
+  # Indicios de RAG detectados por heuristica.
+  rag:
+    - identifier: "knowledge_base"
+      source: "src/agent/knowledge.py"
+  # Nota fixa de fragilidade: sinaliza necessidade de revisao pelo Developer.
+  fragility_note: "Deteccao por heuristica de import/arquivo; revise o resultado."
+
+# Dominio esperado do agente (campo de julgamento). Sugerido pela Fase 2
+# (LLM advisory, opt-in) e confirmado pelo desenvolvedor antes de virar contrato.
+expected_domain: "Assistente de suporte tecnico para documentacao de APIs"
+
+# Golden set candidato (campo de julgamento). Casos sao candidatos, nao verdade;
+# insumo para a camada de IA das Sprints 3+.
+golden_set:
+  - input: "Como autenticar na API v2?"
+    expected: "Explicacao do fluxo OAuth2 com exemplo de header Authorization."
+    note: "Caso base de autenticacao."
+  - input: "Qual o limite de rate da API?"
+    expected: "Descricao do rate limit e do header de quota restante."
