@@ -14,11 +14,11 @@ infraestrutura (Requisito 2.1). Depende exclusivamente do ``domain``.
 
 from collections.abc import Iterable
 
-from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
 from qa_platform.domain.entities.manifest import QATargetManifest
-from qa_platform.domain.value_objects.ids import RunId
 from qa_platform.domain.entities.run_result import RunResult
+from qa_platform.domain.value_objects.evidence import LayerEvidence
+from qa_platform.domain.value_objects.ids import RunId
 
 
 def consolidate(

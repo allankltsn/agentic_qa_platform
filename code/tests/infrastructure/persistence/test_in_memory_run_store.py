@@ -9,9 +9,9 @@ sobrescreve e sinaliza conflito (Req 11.3); Run_Id inexistente sinaliza ausênci
 (Req 11.5).
 """
 
+import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
-import pytest
 
 from qa_platform.domain.entities.execution_plan import ExecutionPlan, PlannedLayer
 from qa_platform.domain.entities.run_result import RunResult

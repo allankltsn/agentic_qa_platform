@@ -17,8 +17,8 @@ de modo que a mesma entrada produza sempre a mesma priorização.
 
 from dataclasses import replace
 
-from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.entities.run_result import RunResult
+from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.value_objects.severity import Severity
 
 

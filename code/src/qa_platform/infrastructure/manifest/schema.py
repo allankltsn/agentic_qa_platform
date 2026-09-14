@@ -76,6 +76,25 @@ def _matches_type(value: Any, expected: str) -> bool:
     return False
 
 
+def _matches_any_type(value: Any, expected: str | list[str]) -> bool:
+    """Indica se ``value`` corresponde ao ``type`` esperado (``str`` ou lista).
+
+    Quando ``expected`` é uma lista de tipos JSON (ex.: ``["string", "null"]``),
+    o valor é considerado válido se casar com **qualquer** um dos tipos listados.
+    Quando é uma ``str``, o comportamento é idêntico a :func:`_matches_type`.
+    """
+    if isinstance(expected, list):
+        return any(_matches_type(value, item) for item in expected)
+    return _matches_type(value, expected)
+
+
+def _format_expected_type(expected: str | list[str]) -> str:
+    """Formata o ``type`` esperado para mensagens de erro (``str`` ou lista)."""
+    if isinstance(expected, list):
+        return ", ".join(expected)
+    return expected
+
+
 def _validate_node(
     value: Any,
     schema: dict[str, Any],
@@ -89,15 +108,19 @@ def _validate_node(
     interromper a validação (Requisitos 8.2, 8.3).
     """
     expected_type = schema.get("type")
-    if expected_type is not None and not _matches_type(value, expected_type):
+    if expected_type is not None and not _matches_any_type(value, expected_type):
         errors[path] = (
-            f"tipo inválido: esperado {expected_type}, obtido {_type_name(value)}"
+            f"tipo inválido: esperado {_format_expected_type(expected_type)}, "
+            f"obtido {_type_name(value)}"
         )
         return  # sem o tipo correto, validações filhas não se aplicam
 
-    if expected_type == "object" or isinstance(value, dict):
+    # Quando ``type`` é uma lista (ex.: ``["string", "null"]``), o valor já
+    # casou com um dos tipos acima; o ramo de validação segue a forma concreta
+    # do valor. Comportamento com ``type`` como ``str`` permanece idêntico.
+    if isinstance(value, dict):
         _validate_object(value, schema, path, errors)
-    elif expected_type == "array" or isinstance(value, list):
+    elif isinstance(value, list):
         _validate_array(value, schema, path, errors)
     else:
         _validate_scalar(value, schema, path, errors)
@@ -158,7 +181,16 @@ def _validate_scalar(
     path: str,
     errors: dict[str, str],
 ) -> None:
-    """Valida restrições de escalares (string/number), acumulando problemas."""
+    """Valida restrições de escalares (string/number/null), acumulando problemas.
+
+    Suporta ``enum`` (conjunto fechado de valores permitidos, podendo incluir
+    ``None`` — ex.: o campo ``framework``): valor fora do conjunto é registrado
+    em ``errors`` nomeando o campo, sem interromper a validação (Requisito 5.7).
+    """
+    enum = schema.get("enum")
+    if enum is not None and value not in enum:
+        errors[path] = f"valor fora do conjunto permitido: {enum}"
+
     min_length = schema.get("minLength")
     if min_length is not None and isinstance(value, str) and len(value) < min_length:
         errors[path] = (

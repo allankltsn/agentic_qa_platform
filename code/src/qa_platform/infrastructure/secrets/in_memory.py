@@ -8,15 +8,13 @@ Trata valor vazio como ausente (``"" == None``) e nunca loga valores
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-
 
 class InMemorySecretsProvider:
     """Fonte de segredos baseada em um dicionário em memória."""
 
-    def __init__(self, secrets: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, secrets: dict[str, str] | None = None) -> None:
         self._secrets = dict(secrets or {})
 
-    def get(self, key: str) -> Optional[str]:
+    def get(self, key: str) -> str | None:
         """Retorna o valor da chave; valor vazio vira ``None`` (vazio == ausente)."""
         return self._secrets.get(key) or None

@@ -8,9 +8,9 @@ nomeando cada um, sem executar camadas (Req 8.5). Inclui também um teste de
 extensibilidade do registry (Req 3.5).
 """
 
+import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
-import pytest
 
 from qa_platform.domain.entities.manifest import QATargetManifest, RiskParameters
 from qa_platform.domain.exceptions import UnknownLayerError
@@ -29,7 +29,7 @@ class _FakeLayer:
     def layer_id(self) -> LayerId:
         return self._id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         return LayerEvidence(layer_id=self._id)
 
 

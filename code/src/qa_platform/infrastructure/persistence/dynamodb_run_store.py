@@ -34,9 +34,10 @@ intermediário, mantendo a compatibilidade do contrato do port (Req 1.3).
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from decimal import Decimal
-from typing import Any, Callable, Optional
+from typing import Any
 
 from qa_platform.domain.entities.run_result import RunResult, RunState
 from qa_platform.domain.exceptions import (
@@ -61,7 +62,7 @@ _PARTITION_KEY = "run_id"
 
 def _utcnow_iso() -> str:
     """Instante atual em ISO-8601 (UTC), usado como ``created_at`` do registro."""
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _to_dynamo_numbers(value: Any) -> Any:
@@ -119,9 +120,9 @@ class DynamoDBRunStateStore:
         self,
         table_name: str,
         *,
-        endpoint_url: Optional[str] = None,
-        region: Optional[str] = None,
-        clock: Optional[Callable[[], str]] = None,
+        endpoint_url: str | None = None,
+        region: str | None = None,
+        clock: Callable[[], str] | None = None,
     ) -> None:
         """Configura o adapter sem tocar no SDK (import tardio no 1º uso).
 
@@ -186,7 +187,7 @@ class DynamoDBRunStateStore:
                 Item=item,
                 ConditionExpression=f"attribute_not_exists({_PARTITION_KEY})",  # Req 2.1, 2.4
             )
-        except Exception as exc:  # noqa: BLE001 — classificado abaixo por código
+        except Exception as exc:
             if _is_conditional_check_failed(exc):
                 raise RunIdConflictError(run_id.value) from exc  # Req 2.1
             raise RunStorageError(
@@ -204,7 +205,7 @@ class DynamoDBRunStateStore:
         """
         try:
             response = self._get_table().get_item(Key={_PARTITION_KEY: run_id.value})
-        except Exception as exc:  # noqa: BLE001 — classificado abaixo por código
+        except Exception as exc:
             raise RunStorageError(
                 "get", run_id.value, _safe_reason(exc)
             ) from exc  # Req 7.2, 7.3

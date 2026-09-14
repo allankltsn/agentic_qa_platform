@@ -8,6 +8,63 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### Added
+
+- **Descoberta híbrida de alvo** (feature `hybrid-target-discovery`, ADR-004):
+  inspeção do repositório-alvo em duas fases com uma fronteira de camadas dura
+  entre elas.
+  - **Fase 1 — inspeção estática determinística** (`Static_Inspector`):
+    `discovery_heuristics.py` detecta por heurística o framework de agente (Agno,
+    LangGraph, ambos → ambíguo, ou nenhum), tools, prompts e indícios de RAG,
+    cada achado com origem (`DetectedItem(identifier, source)`); `repo_reader.py`
+    lê o alvo do filesystem local produzindo uma visão imutável e ordenada,
+    abortando sem visão parcial quando um arquivo é inacessível. A saída é
+    **determinística e ordenada** por `(source, identifier)` e **não toca LLM,
+    rede nem `MODEL_PROVIDER`/`SecretResolver`**. Campos não deriváveis
+    permanecem `PENDING`; a interface pública do `Static_Inspector` (assinatura,
+    `PENDING`, `TargetResolutionError`, `__all__`) foi preservada da Sprint 1.
+  - **Fase 2 — enriquecimento advisory por LLM, opt-in** (`LLMEnricher`): a
+    partir do Draft determinístico, um Agent Agno sugere `expected_domain` e
+    casos de `golden_set`. As sugestões **nunca sobrescrevem** o Draft: entram
+    como `Suggestion` marcada (`origin`, `state="pendente"`) com máquina de
+    estados de resolução (`aceitar`/`editar`/`descartar`); o `base_fields`
+    permanece cópia fiel do Draft. Resolve `MODEL_PROVIDER` **antes** de qualquer
+    chamada (fail-fast ~5s com `MissingSecretError` nomeando só a env), aplica
+    guardrail de escopo e impõe timeout duro de 120s (`EnrichmentTimeoutError`).
+  - **Manifesto `qa-target.yaml`** passou a reconhecer três campos opcionais
+    mapeados para o domínio: `discovery` (resultado documental da inspeção
+    estática), `expected_domain` (domínio esperado do alvo) e `golden_set` (casos
+    candidatos). O JSON Schema declara os campos **fora de `required`** e o
+    validador ganhou suporte a `enum` e `type`-como-lista. Todos têm default no
+    `QATargetManifest` (`DiscoveryInfo.empty()`, `None`, tupla vazia),
+    preservando a retrocompatibilidade: manifestos existentes continuam válidos e
+    produzem os mesmos resultados. `discovery` é **documental/advisory** — não
+    altera o roteamento das camadas de QA.
+  - **Caso de uso `suggest_manifest`** (`application/`): orquestra a Fase 2 via
+    `EnricherPort` estrutural, mantendo `application` livre de `agno`/infra em
+    runtime. Lê e valida o Draft (`InvalidDraftError` sem invocar o enricher se
+    ausente/ilegível/malformado) e converte falhas do enricher em erros tipados
+    da aplicação (`EnrichmentError`, `EnrichmentTimeoutError`), sem vazar segredos
+    nem stack trace.
+  - **CLI `suggest-manifest`**: novo subcomando fino que enriquece um Draft e
+    imprime o `AnnotatedDraft` em JSON. Exit codes `0` (sucesso), `2`
+    (`InvalidDraftError`) e `3` (`EnrichmentError`/timeout/provider ausente); erro
+    em JSON no stderr, sem stack trace. O caminho da Fase 1 não invoca o enricher
+    e consome zero tokens. Wiring pelo `composition_root.build_enricher()` — a CLI
+    não importa `agno` diretamente.
+  - **Value objects de domínio** puros e imutáveis: `Framework`, `DetectedItem`,
+    `DiscoveryInfo` (`discovery.py`) e `GoldenCase` (`golden_case.py`), sem
+    Pydantic e sem dependência de infra/interface/`agno`.
+
+### Changed
+
+- Contratos de fronteira do **import-linter** estendidos para a ADR-004:
+  `orchestration` **não** importa `infrastructure.enrichment`; a Fase 1
+  (`target_discovery`/`discovery_heuristics`/`repo_reader`) **não** importa `agno`
+  nem `enrichment`; e `infrastructure.enrichment.*` foi autorizado como fonte
+  legítima de `agno` (contrato `agno-confinado`), mantendo `domain`/`interface`
+  proibidos de importá-lo.
+
 ## [0.2.0] - 2026-09-12
 
 ### Added

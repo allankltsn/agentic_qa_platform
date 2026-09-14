@@ -8,9 +8,9 @@ Property 5: seleção exata, deduplicada, ordenada e determinística (Req 3.1, 3
 sem selecionar nada (Req 3.3).
 """
 
+import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
-import pytest
 
 from qa_platform.domain.entities.execution_plan import ExecutionPlan, PlannedLayer
 from qa_platform.domain.exceptions import UnknownLayerError
@@ -30,7 +30,7 @@ class _FakeLayer:
     def layer_id(self) -> LayerId:
         return self._id
 
-    def execute(self, plan, manifest) -> LayerEvidence:  # noqa: ANN001
+    def execute(self, plan, manifest) -> LayerEvidence:
         return LayerEvidence(layer_id=self._id)
 
 

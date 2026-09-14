@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Dict, Optional
 
 
 class AWSSecretsManagerProvider:
@@ -22,18 +21,21 @@ class AWSSecretsManagerProvider:
     Import tardio do boto3: o módulo permanece importável/testável sem o SDK.
     """
 
-    SECRET_NAME_ENV = "SECRET_NAME"
-    DEFAULT_SECRET_NAME = "qa-platform-secrets"
+    # Nome da env var que aponta o segredo (não é a senha), e o nome padrão do
+    # segredo no Secrets Manager (identificador, não valor). Bandit os confunde
+    # com senha embutida (B105) — falso positivo suprimido pontualmente.
+    SECRET_NAME_ENV = "SECRET_NAME"  # nosec B105
+    DEFAULT_SECRET_NAME = "qa-platform-secrets"  # nosec B105
 
-    def __init__(self, secret_name: Optional[str] = None) -> None:
+    def __init__(self, secret_name: str | None = None) -> None:
         self._secret_name = (
             secret_name
             or os.environ.get(self.SECRET_NAME_ENV)
             or self.DEFAULT_SECRET_NAME
         )
-        self._cache: Optional[Dict[str, str]] = None
+        self._cache: dict[str, str] | None = None
 
-    def _load(self) -> Dict[str, str]:
+    def _load(self) -> dict[str, str]:
         """Carrega (e cacheia por processo) o segredo JSON como dict de strings."""
         if self._cache is not None:
             return self._cache
@@ -54,6 +56,6 @@ class AWSSecretsManagerProvider:
         self._cache = {k: str(v) for k, v in data.items() if isinstance(v, str)}
         return self._cache
 
-    def get(self, key: str) -> Optional[str]:
+    def get(self, key: str) -> str | None:
         """Retorna o valor da chave; vazio vira ``None`` (vazio == ausente)."""
         return self._load().get(key) or None

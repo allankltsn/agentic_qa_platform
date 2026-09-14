@@ -9,10 +9,10 @@ implementação mínima expõe os métodos exigidos pelo contrato.
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
 from qa_platform.domain.entities.manifest import QATargetManifest
 from qa_platform.domain.entities.run_result import RunResult, RunState
-from qa_platform.domain.value_objects.evidence import LayerEvidence
-from qa_platform.domain.value_objects.ids import LayerId, RunId
 from qa_platform.domain.ports.qa_layer import QALayerContract
 from qa_platform.domain.ports.run_state_store import RunStateStore
+from qa_platform.domain.value_objects.evidence import LayerEvidence
+from qa_platform.domain.value_objects.ids import LayerId, RunId
 
 
 class _MinimalLayer:

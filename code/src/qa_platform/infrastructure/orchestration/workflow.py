@@ -51,9 +51,9 @@ from qa_platform.domain.entities.execution_plan import ExecutionPlan
 from qa_platform.domain.entities.manifest import QATargetManifest
 from qa_platform.domain.entities.run_result import RunResult, RunState, SkippedWork
 from qa_platform.domain.exceptions import OrchestrationDomainError
+from qa_platform.domain.ports.run_state_store import RunStateStore
 from qa_platform.domain.value_objects.evidence import LayerEvidence
 from qa_platform.domain.value_objects.ids import RunId
-from qa_platform.domain.ports.run_state_store import RunStateStore
 from qa_platform.infrastructure.manifest.schema import validate_manifest
 from qa_platform.infrastructure.orchestration.cost_condition import (
     should_skip_expensive,
@@ -180,7 +180,10 @@ def build_orchestrator(
 
     def _consolidate(step_input: StepInput) -> StepOutput:
         """Evidence_Consolidator: agrega as evidências num RunResult (Req 2.4)."""
-        plan, evidences, failures, skipped = step_input.previous_step_content
+        content = step_input.previous_step_content
+        if not isinstance(content, tuple) or len(content) != 4:
+            raise TypeError("Consolidate step: conteúdo ausente do step anterior")
+        plan, evidences, failures, skipped = content
         consolidated = consolidate(run_id, manifest, plan, evidences)
         # Preserva trabalho pulado e falhas de camada no RunResult (Req 5.2, 6.4),
         # mantendo a identidade do alvo já preenchida pela consolidação (Req 8.1/8.2).
@@ -190,11 +193,16 @@ def build_orchestrator(
 
     def _advisory_judge(step_input: StepInput) -> StepOutput:
         """Advisory_Judge: priorização determinística sem veredito (Req 10.x)."""
-        return StepOutput(content=prioritize(step_input.previous_step_content))
+        result = step_input.previous_step_content
+        if not isinstance(result, RunResult):
+            raise TypeError("Advisory step: RunResult ausente do step anterior")
+        return StepOutput(content=prioritize(result))
 
     def _feedback(step_input: StepInput) -> StepOutput:
         """Feedback_Dispatcher: encaminha o resultado ao sink plugável (Req 2.1)."""
         result = step_input.previous_step_content
+        if not isinstance(result, RunResult):
+            raise TypeError("Feedback step: RunResult ausente do step anterior")
         dispatch(result, feedback_sink)
         return StepOutput(content=result)
 
@@ -273,7 +281,7 @@ def run_orchestration(
     run_id = factory()
     try:
         store.start(run_id, RunState(run_id=run_id))
-    except Exception as exc:  # noqa: BLE001 - falha de registro do estado inicial
+    except Exception as exc:
         raise OrchestrationError(
             INITIAL_STATE_STEP,
             f"falha ao registrar o estado inicial: {type(exc).__name__}",

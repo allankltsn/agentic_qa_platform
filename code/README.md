@@ -14,10 +14,14 @@ Rode tudo a partir desta pasta (`code/`):
 ```bash
 uv sync                                                   # deps no .venv isolado
 uv run python -m qa_platform.interface.cli.main serve     # sobe a API local (GET /health)
+uv run --env-file .env python -m qa_platform.interface.cli.main suggest-manifest draft.example.json  # Fase 2 advisory (opt-in, exige MODEL_PROVIDER)
 uv run pytest                                             # suíte de testes
 uv run lint-imports --config importlinter.ini             # contratos de camada
 docker compose config                                     # valida o ambiente local
 ```
+
+Descoberta híbrida de alvo (Fase 1 determinística + Fase 2 advisory por LLM),
+fronteiras de arquitetura e demais detalhes estão no README da raiz.
 
 ## Estrutura
 

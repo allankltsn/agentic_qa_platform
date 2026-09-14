@@ -80,6 +80,116 @@
           }
         }
       }
+    },
+    "expected_domain": {
+      "description": "Dominio esperado do alvo (campo de julgamento). Opcional (Req 5.2).",
+      "type": "string",
+      "minLength": 1
+    },
+    "golden_set": {
+      "description": "Casos candidatos do golden set. Opcional (Req 5.3).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "input",
+          "expected"
+        ],
+        "properties": {
+          "input": {
+            "description": "Entrada do caso do golden set; nao-vazio (Req 5.3).",
+            "type": "string",
+            "minLength": 1
+          },
+          "expected": {
+            "description": "Saida esperada do caso do golden set; nao-vazio (Req 5.3).",
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "description": "Anotacao opcional do caso do golden set (Req 5.3).",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "discovery": {
+      "description": "Resultado documental/derivado da inspecao estatica (Fase 1). Opcional (Req 5.1). Heuristicas frageis: exigem revisao do Developer.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "framework": {
+          "description": "Framework detectado; null quando nao detectado (Req 3.4).",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "agno",
+            "langgraph",
+            null
+          ]
+        },
+        "frameworks_detected": {
+          "description": "Frameworks detectados; mais de um indica ambiguidade (Req 3.3).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "agno",
+              "langgraph"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "ambiguous": {
+          "description": "Indica ambiguidade quando mais de um framework e detectado (Req 3.3).",
+          "type": "boolean"
+        },
+        "tools": {
+          "description": "Tools detectadas por heuristica, com identificador e origem (Req 4.1).",
+          "$ref": "#/$defs/detectedItemList"
+        },
+        "prompts": {
+          "description": "Prompts detectados por heuristica, com identificador e origem (Req 4.2).",
+          "$ref": "#/$defs/detectedItemList"
+        },
+        "rag": {
+          "description": "Indicios de RAG detectados por heuristica, com identificador e origem (Req 4.3).",
+          "$ref": "#/$defs/detectedItemList"
+        },
+        "fragility_note": {
+          "description": "Nota de fragilidade das heuristicas; sinaliza necessidade de revisao (Req 3.5).",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "detectedItemList": {
+      "description": "Lista de itens detectados por heuristica, cada um com identificador e caminho de origem (Req 4.1-4.3).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "identifier",
+          "source"
+        ],
+        "properties": {
+          "identifier": {
+            "description": "Identificador do item detectado; nao-vazio (Req 4.1-4.3).",
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "description": "Caminho de origem do item detectado; nao-vazio (Req 4.1-4.3).",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     }
   }
 }

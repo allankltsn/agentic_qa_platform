@@ -12,7 +12,6 @@ rede e não importa framework de orquestração (Agno), parser de YAML ou
 infraestrutura (Requisito 2.1). Depende exclusivamente do ``domain``.
 """
 
-from qa_platform.domain.exceptions import InvalidManifestError
 from qa_platform.domain.entities.execution_plan import (
     PRIORITY_MAX,
     PRIORITY_MIN,
@@ -20,6 +19,7 @@ from qa_platform.domain.entities.execution_plan import (
     PlannedLayer,
 )
 from qa_platform.domain.entities.manifest import QATargetManifest, RiskParameters
+from qa_platform.domain.exceptions import InvalidManifestError
 
 # Fator de escala do peso de risco para a prioridade inteira. O peso é um valor
 # relativo não-negativo; multiplicá-lo por 100 e arredondar produz uma prioridade

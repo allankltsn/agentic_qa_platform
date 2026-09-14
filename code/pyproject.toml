@@ -25,6 +25,30 @@ dependencies = [
 aws = [
     "boto3==1.35.90",
 ]
+# SDKs dos providers de LLM do enricher (Fase 2). Import tardio dentro do
+# LLMEnricher: só são necessários quando MODEL_PROVIDER seleciona o provider
+# correspondente. Agno importa esses SDKs lazily ao instanciar o modelo, então a
+# ausência só falha na execução real (tratada como EnrichmentError).
+# - openai: provider OpenAI. O SDK `openai` também é dependência TRANSITIVA do
+#   provider Ollama do Agno: importar `agno.models.ollama` executa o
+#   `__init__` do pacote, que puxa `agno.models.openai`. Por isso o extra
+#   `ollama` inclui `openai`.
+# - ollama: provider local (docker-compose, perfil `llm`), lê OLLAMA_HOST.
+# - gemini: provider Gemini (Developer API), lê GOOGLE_API_KEY.
+openai = [
+    "openai==3.13.0",
+]
+ollama = [
+    "ollama==0.6.2",
+    # Dependência transitiva do import do provider Ollama do Agno (ver acima).
+    "openai==3.13.0",
+]
+gemini = [
+    # Série 1.x: aceita pydantic>=2.9.0 (compatível com pydantic==2.10.4 do
+    # projeto). A série 2.x exige pydantic>=2.12.5, incompatível com o pin atual.
+    # Satisfaz o mínimo do Agno (google-genai>=1.52.0 no extra `google`).
+    "google-genai==1.75.0",
+]
 otel = [
     "opentelemetry-api==1.29.0",
     "opentelemetry-sdk==1.29.0",
@@ -77,4 +101,13 @@ ignore_missing_imports = true
 # de tipos do resto do projeto.
 [[tool.mypy.overrides]]
 module = ["yaml"]
+ignore_missing_imports = true
+
+# boto3/botocore (extra `aws`) nao publicam type stubs / py.typed, e
+# opentelemetry (extra `otel`) e opcional e pode nao estar instalado no venv
+# default. Ambos sao libs de fronteira, confinadas a infrastructure/. Ignora as
+# stubs/imports ausentes desses pacotes sem afrouxar a checagem do resto do
+# projeto (alinha o `mypy src` local ao gate do pre-commit).
+[[tool.mypy.overrides]]
+module = ["boto3", "botocore.*", "opentelemetry.*"]
 ignore_missing_imports = true

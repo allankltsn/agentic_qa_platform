@@ -8,8 +8,8 @@ registra os resultados emitidos.
 
 from qa_platform.application.feedback_dispatcher import FeedbackSink, dispatch
 from qa_platform.domain.entities.execution_plan import ExecutionPlan
-from qa_platform.domain.value_objects.ids import RunId
 from qa_platform.domain.entities.run_result import RunResult
+from qa_platform.domain.value_objects.ids import RunId
 
 
 class _RecordingSink:

@@ -5,13 +5,13 @@ produz ``ExecutionPlan`` iguais em valor e com serialização idêntica, refleti
 o determinismo byte-a-byte exigido pelo ADR-001 (Requisitos 1.2, 2.5, 3.6).
 """
 
+import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
-import pytest
 
 from qa_platform.application.risk_planner import plan_by_risk
-from qa_platform.domain.value_objects.ids import LayerId
 from qa_platform.domain.entities.manifest import QATargetManifest, RiskParameters
+from qa_platform.domain.value_objects.ids import LayerId
 
 # Gerador de valores de LayerId: strings não-vazias e não compostas apenas por
 # espaços, restringindo ao espaço de entrada aceito por LayerId.

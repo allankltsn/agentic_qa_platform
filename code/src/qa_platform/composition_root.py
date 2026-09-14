@@ -25,6 +25,7 @@ from qa_platform.application.feedback_dispatcher import FeedbackSink
 from qa_platform.domain.entities.manifest import QATargetManifest
 from qa_platform.domain.entities.run_result import RunResult
 from qa_platform.infrastructure.config import load_settings
+from qa_platform.infrastructure.enrichment.llm_enricher import LLMEnricher
 from qa_platform.infrastructure.layers.ai_layer_stub import AILayerStub
 from qa_platform.infrastructure.observability.logging import build_json_logger
 from qa_platform.infrastructure.observability.tracing import configure_tracing
@@ -159,3 +160,28 @@ def build_orchestrator_runner(
         )
 
     return _run
+
+
+def build_enricher() -> LLMEnricher:
+    """Monta o ``LLMEnricher`` (adapter Agno) da Fase 2, advisory e opt-in.
+
+    Ponto de composição do enriquecimento por LLM (ADR-004), análogo a
+    ``build_app`` e ``build_orchestrator_runner`` e sem alterá-los. Reusa o helper
+    ``_build_secret_resolver`` para montar o ``SecretResolver`` com o pipe de
+    fallback ``env -> Secrets Manager`` e o injeta no ``LLMEnricher`` (Requisitos
+    6.1, 9.1).
+
+    Este é o **único** ponto que "cola" a interface (CLI ``suggest-manifest``) ao
+    adapter Agno ``LLMEnricher``, preservando a fronteira do import-linter
+    (``agno-confinado`` com ``allow_indirect_imports=True``): a CLI alcança o
+    ``agno`` apenas indiretamente, por meio deste composition root. Diferente dos
+    demais builders, ``build_enricher`` **não** resolve ``Settings`` nem configura
+    observabilidade: a resolução do ``MODEL_PROVIDER`` (fail-fast) acontece dentro
+    do próprio enricher, na chamada de ``enrich`` e antes de qualquer uso de
+    ``agno`` (Req 9.1).
+
+    Returns:
+        Um ``LLMEnricher`` com o ``SecretResolver`` já cabeado, pronto para ser
+        injetado no caso de uso ``suggest_manifest``.
+    """
+    return LLMEnricher(_build_secret_resolver())

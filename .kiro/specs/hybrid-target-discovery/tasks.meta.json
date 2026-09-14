@@ -1,0 +1,473 @@
+{
+  "pbtResults": {
+    "6.2 Teste de propriedade — determinismo/ordenação da Fase 1": {
+      "status": "passed",
+      "lastRunTimestamp": 1789317104508
+    },
+    "2.3 Teste de propriedade — retrocompatibilidade do schema": {
+      "status": "passed",
+      "lastRunTimestamp": 1789317105387
+    }
+  },
+  "executionHistory": {
+    "1. Value objects puros do domínio (`DiscoveryInfo`, `GoldenCase`)": [
+      {
+        "executionId": "202368d7-5ae5-4e6d-8651-1b9d2c3b55ad",
+        "chatSessionId": "sess_a1ff3c8f-7ac1-44e7-a7d2-83daa209a4b8",
+        "timestamp": 1789263635161
+      },
+      {
+        "executionId": "202368d7-5ae5-4e6d-8651-1b9d2c3b55ad",
+        "chatSessionId": "sess_a1ff3c8f-7ac1-44e7-a7d2-83daa209a4b8",
+        "timestamp": 1789265153933
+      }
+    ],
+    "1.2 Criar `domain/value_objects/golden_case.py` com `GoldenCase`": [
+      {
+        "executionId": "9fec94c4-e108-4fa8-b122-20d7b7d256c0",
+        "chatSessionId": "sess_982d766f-f6c0-4566-bb52-3f2ae80b3a6f",
+        "timestamp": 1789265309039
+      },
+      {
+        "executionId": "9fec94c4-e108-4fa8-b122-20d7b7d256c0",
+        "chatSessionId": "sess_982d766f-f6c0-4566-bb52-3f2ae80b3a6f",
+        "timestamp": 1789265470076
+      }
+    ],
+    "1.3 Escrever testes unitários dos VOs de domínio": [
+      {
+        "executionId": "35954d1c-8745-4636-85b8-9342cf9825eb",
+        "chatSessionId": "sess_9d730c08-690a-4d69-9824-19fc14e23fb1",
+        "timestamp": 1789265537932
+      },
+      {
+        "executionId": "35954d1c-8745-4636-85b8-9342cf9825eb",
+        "chatSessionId": "sess_9d730c08-690a-4d69-9824-19fc14e23fb1",
+        "timestamp": 1789266664525
+      }
+    ],
+    "2.1 Estender `schemas/qa-target.schema.json` com `discovery`, `expected_domain`, `golden_set` opcionais": [
+      {
+        "executionId": "c061380d-b521-4d2e-bb0b-cb0c536b5423",
+        "chatSessionId": "sess_10a465ac-e9fa-4d6d-837c-449ed764b551",
+        "timestamp": 1789266846933
+      },
+      {
+        "executionId": "c061380d-b521-4d2e-bb0b-cb0c536b5423",
+        "chatSessionId": "sess_10a465ac-e9fa-4d6d-837c-449ed764b551",
+        "timestamp": 1789266979405
+      }
+    ],
+    "2.2 Estender o validador para suportar `enum` e `type` como lista": [
+      {
+        "executionId": "c061380d-b521-4d2e-bb0b-cb0c536b5423",
+        "chatSessionId": "sess_10a465ac-e9fa-4d6d-837c-449ed764b551",
+        "timestamp": 1789266851145
+      },
+      {
+        "executionId": "c061380d-b521-4d2e-bb0b-cb0c536b5423",
+        "chatSessionId": "sess_10a465ac-e9fa-4d6d-837c-449ed764b551",
+        "timestamp": 1789266983557
+      }
+    ],
+    "2.3 Teste de propriedade — retrocompatibilidade do schema": [
+      {
+        "executionId": "1c3aa70c-f322-4cf9-a6b2-828526a97dff",
+        "chatSessionId": "sess_2dcbd3f3-3401-4449-b26b-bcfbf6f81e88",
+        "timestamp": 1789267234696
+      },
+      {
+        "executionId": "1c3aa70c-f322-4cf9-a6b2-828526a97dff",
+        "chatSessionId": "sess_2dcbd3f3-3401-4449-b26b-bcfbf6f81e88",
+        "timestamp": 1789267405872
+      }
+    ],
+    "2.4 Teste de propriedade — campo opcional malformado é rejeitado nomeando o campo": [
+      {
+        "executionId": "3bd278de-d2e0-49fa-8ac2-4d298cfc221a",
+        "chatSessionId": "sess_378f1e73-f731-4994-946e-bc6124491b3f",
+        "timestamp": 1789267447952
+      },
+      {
+        "executionId": "3bd278de-d2e0-49fa-8ac2-4d298cfc221a",
+        "chatSessionId": "sess_378f1e73-f731-4994-946e-bc6124491b3f",
+        "timestamp": 1789267755944
+      }
+    ],
+    "2.5 Teste por exemplo — schema declara os 3 campos fora de `required`": [
+      {
+        "executionId": "9310d4dd-2da0-4f5a-b7bc-a80a0842f0d1",
+        "chatSessionId": "sess_738a717d-8780-44b5-a78a-ce2d7d6defa0",
+        "timestamp": 1789267830049
+      },
+      {
+        "executionId": "9310d4dd-2da0-4f5a-b7bc-a80a0842f0d1",
+        "chatSessionId": "sess_738a717d-8780-44b5-a78a-ce2d7d6defa0",
+        "timestamp": 1789267956544
+      }
+    ],
+    "2. Estender o JSON Schema e o validador (`schema.py`)": [
+      {
+        "executionId": "9310d4dd-2da0-4f5a-b7bc-a80a0842f0d1",
+        "chatSessionId": "sess_738a717d-8780-44b5-a78a-ce2d7d6defa0",
+        "timestamp": 1789267957081
+      }
+    ],
+    "4. Checkpoint — domínio, schema e parser": [
+      {
+        "executionId": "ae675dc9-38b2-4404-8e56-1caddcd2df89",
+        "chatSessionId": "sess_866300c6-b73f-4467-822b-84d9ac32b883",
+        "timestamp": 1789305793918
+      },
+      {
+        "executionId": "ae675dc9-38b2-4404-8e56-1caddcd2df89",
+        "chatSessionId": "sess_866300c6-b73f-4467-822b-84d9ac32b883",
+        "timestamp": 1789310211878
+      }
+    ],
+    "5.1 Criar `infrastructure/manifest/repo_reader.py` (leitura estática total, sem rede)": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312537088
+      },
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312851862
+      }
+    ],
+    "1.1 Criar `domain/value_objects/discovery.py` com `Framework`, `DetectedItem`, `DiscoveryInfo`": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312542930
+      }
+    ],
+    "5.2 Criar `infrastructure/manifest/discovery_heuristics.py` (detecção)": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312547528
+      },
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312855810
+      }
+    ],
+    "5.3 Teste de propriedade — detecção de framework por heurística": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312551617
+      },
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312859680
+      }
+    ],
+    "5.4 Teste de propriedade — extração de tools/prompts/RAG com origem": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312555800
+      },
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312863761
+      }
+    ],
+    "5. Leitura estática e heurísticas da Fase 1": [
+      {
+        "executionId": "ab6ecb13-62cb-4070-b887-f33c04dac337",
+        "chatSessionId": "sess_77fd3abe-e018-4343-aae5-d0acc3a82d8f",
+        "timestamp": 1789312864010
+      }
+    ],
+    "6.1 Reimplementar `discover_target` compondo `repo_reader` + `discovery_heuristics`": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789315996335
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316205789
+      }
+    ],
+    "6.2 Teste de propriedade — determinismo/ordenação da Fase 1": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316212406
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316731168
+      }
+    ],
+    "6.3 Teste de propriedade — erro em referência de alvo ruim": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316213324
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316732184
+      }
+    ],
+    "6.4 Testes por exemplo/edge — interface preservada e Fase 1 sem LLM/rede": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316214819
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316733516
+      }
+    ],
+    "6.5 Teste de integração — `target_discovery` como Step válido do Workflow": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316216296
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316734988
+      }
+    ],
+    "6.6 Teste de propriedade — `discovery` é documental e não altera roteamento": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316217231
+      },
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316736067
+      }
+    ],
+    "6. Novo corpo do `Static_Inspector` (`target_discovery.py`, interface preservada)": [
+      {
+        "executionId": "e836723f-4505-4607-b834-cfeeb634ffa0",
+        "chatSessionId": "sess_47368921-ca85-41df-b613-8ed04a21ed32",
+        "timestamp": 1789316736416
+      }
+    ],
+    "7. Checkpoint — Fase 1 completa (determinística, sem LLM/rede)": [
+      {
+        "executionId": "2ec12cd7-8a2c-42e0-9681-ad7eeb24c9c9",
+        "chatSessionId": "sess_8c508dd3-a4c1-4ed9-952d-3f8cf071f1de",
+        "timestamp": 1789316862164
+      },
+      {
+        "executionId": "2ec12cd7-8a2c-42e0-9681-ad7eeb24c9c9",
+        "chatSessionId": "sess_8c508dd3-a4c1-4ed9-952d-3f8cf071f1de",
+        "timestamp": 1789318231487
+      }
+    ],
+    "8.1 Criar `infrastructure/enrichment/annotated_draft.py` (Pydantic na borda)": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789321706205
+      },
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789321884234
+      }
+    ],
+    "8.2 Teste de propriedade — máquina de estados da resolução de sugestão": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789321889588
+      },
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789323459120
+      }
+    ],
+    "8.3 Criar `infrastructure/enrichment/llm_enricher.py` (`LLMEnricher`, único novo import de `agno`)": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789321890821
+      },
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789323460140
+      }
+    ],
+    "8.4 Teste de propriedade — sugestões nunca sobrescrevem silenciosamente (LLM mockado)": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789323465155
+      },
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789324116958
+      }
+    ],
+    "8.5 Testes por exemplo/edge — fail-fast do provider e guardrail (moto quando AWS)": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789323466284
+      },
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789324117741
+      }
+    ],
+    "8. Modelos de enriquecimento e `LLM_Enricher` (Fase 2)": [
+      {
+        "executionId": "188f26a0-393c-4a38-99a2-6d37f9675a64",
+        "chatSessionId": "sess_60d7caf4-67c0-4230-b1fc-2321e725a1cc",
+        "timestamp": 1789324118031
+      }
+    ],
+    "9.1 Implementar `suggest_manifest` + `EnricherPort` + erros tipados": [
+      {
+        "executionId": "989a66df-e3b7-4845-aea6-990891b7623c",
+        "chatSessionId": "sess_57456f5e-7bc3-47e5-8ff5-846b33fb6d09",
+        "timestamp": 1789327022082
+      },
+      {
+        "executionId": "989a66df-e3b7-4845-aea6-990891b7623c",
+        "chatSessionId": "sess_57456f5e-7bc3-47e5-8ff5-846b33fb6d09",
+        "timestamp": 1789327280615
+      }
+    ],
+    "9. Caso de uso `suggest_manifest` (`application/suggest_manifest.py`)": [
+      {
+        "executionId": "989a66df-e3b7-4845-aea6-990891b7623c",
+        "chatSessionId": "sess_57456f5e-7bc3-47e5-8ff5-846b33fb6d09",
+        "timestamp": 1789327281063
+      }
+    ],
+    "9.2 Testes por exemplo/edge — validação de Draft e propagação de falha": [
+      {
+        "executionId": "0c6da31e-dce4-4091-b255-d522b30c025f",
+        "chatSessionId": "sess_5d424765-0405-4675-a989-dacae8500429",
+        "timestamp": 1789327876310
+      },
+      {
+        "executionId": "0c6da31e-dce4-4091-b255-d522b30c025f",
+        "chatSessionId": "sess_5d424765-0405-4675-a989-dacae8500429",
+        "timestamp": 1789328061559
+      }
+    ],
+    "10.1 Adicionar `build_enricher()` ao `composition_root.py`": [
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328355551
+      },
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328457343
+      }
+    ],
+    "10.2 Adicionar o subcomando fino `suggest-manifest` em `interface/cli/main.py`": [
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328461822
+      },
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328582787
+      }
+    ],
+    "10.3 Testes por exemplo/edge — fluxo da CLI feliz e caminhos de erro": [
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328589020
+      },
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328981080
+      }
+    ],
+    "10.4 Teste por exemplo — gate de promoção humana e Static_Inspector não toca SecretResolver": [
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328590116
+      },
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328981858
+      }
+    ],
+    "10. Subcomando CLI `suggest-manifest` e wiring": [
+      {
+        "executionId": "91125e5a-2205-4fcf-8459-73e4b7b065e5",
+        "chatSessionId": "sess_50a11466-ac39-4456-9920-77194f8bf53a",
+        "timestamp": 1789328982149
+      }
+    ],
+    "11.1 Adicionar contratos `forbidden` da fronteira ADR-004": [
+      {
+        "executionId": "7fb1d29b-f6a9-42bb-8ee7-deb9c63c8e48",
+        "chatSessionId": "sess_b2c76bd7-7f26-4157-a0b9-79eb95dff7ff",
+        "timestamp": 1789334531815
+      },
+      {
+        "executionId": "7fb1d29b-f6a9-42bb-8ee7-deb9c63c8e48",
+        "chatSessionId": "sess_b2c76bd7-7f26-4157-a0b9-79eb95dff7ff",
+        "timestamp": 1789334636085
+      }
+    ],
+    "11.2 Teste determinístico de fronteira (import-linter)": [
+      {
+        "executionId": "7fb1d29b-f6a9-42bb-8ee7-deb9c63c8e48",
+        "chatSessionId": "sess_b2c76bd7-7f26-4157-a0b9-79eb95dff7ff",
+        "timestamp": 1789334639853
+      },
+      {
+        "executionId": "7fb1d29b-f6a9-42bb-8ee7-deb9c63c8e48",
+        "chatSessionId": "sess_b2c76bd7-7f26-4157-a0b9-79eb95dff7ff",
+        "timestamp": 1789334773959
+      }
+    ],
+    "11. Contratos de fronteira no `import-linter` (`importlinter.ini`)": [
+      {
+        "executionId": "7fb1d29b-f6a9-42bb-8ee7-deb9c63c8e48",
+        "chatSessionId": "sess_b2c76bd7-7f26-4157-a0b9-79eb95dff7ff",
+        "timestamp": 1789334774395
+      }
+    ],
+    "12.1 Rodar build, lint, tipos, import-linter e testes sob `code/`": [
+      {
+        "executionId": "1f76bc8b-670b-48e8-bcac-bc80c1e6d7c1",
+        "chatSessionId": "sess_e127e68a-b400-4b22-a5bc-10adbbcee4be",
+        "timestamp": 1789335626847
+      }
+    ]
+  }
+}

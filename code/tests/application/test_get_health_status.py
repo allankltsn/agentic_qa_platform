@@ -10,7 +10,6 @@ from hypothesis import strategies as st
 from qa_platform.application.get_health_status import GetHealthStatus
 from qa_platform.domain.value_objects.health import STATUS_OK
 
-
 # Gerador de strings de versão não-vazias: descarta valores vazios ou compostos
 # apenas por espaços em branco, restringindo ao espaço de entrada válido.
 _non_empty_versions = st.text().filter(lambda v: v.strip() != "")

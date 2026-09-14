@@ -15,6 +15,6 @@ def register_error_handlers(app) -> None:
     """Registra o handler global de exceção não tratada na app."""
 
     @app.exception_handler(Exception)
-    async def unhandled(_: Request, exc: Exception):  # noqa: ANN202
+    async def unhandled(_: Request, exc: Exception):
         # Logue ``exc`` internamente (sem PII/segredo); NUNCA devolva stack trace.
         return JSONResponse(status_code=500, content={"detail": "erro interno"})

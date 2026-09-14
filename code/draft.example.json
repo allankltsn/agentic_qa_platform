@@ -1,0 +1,14 @@
+{
+  "target": {
+    "name": "checkout-api",
+    "type": "http_api",
+    "base_url": "https://api.exemplo.com",
+    "description": "API de checkout do e-commerce"
+  },
+  "applicable_layers": ["contract", "integration", "e2e"],
+  "risk_parameters": {
+    "criticality": "high",
+    "data_sensitivity": "pii",
+    "blast_radius": "customer_facing"
+  }
+}

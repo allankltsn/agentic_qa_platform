@@ -9,6 +9,8 @@ esta estrutura; os tipos do parser não vazam para o domínio.
 
 from dataclasses import dataclass, field
 
+from qa_platform.domain.value_objects.discovery import DiscoveryInfo
+from qa_platform.domain.value_objects.golden_case import GoldenCase
 from qa_platform.domain.value_objects.ids import LayerId
 
 
@@ -67,6 +69,13 @@ class QATargetManifest:
         applicable_layers: camadas de QA aplicáveis, na ordem declarada.
         risk_parameters: parâmetros de risco por ``LayerId``.
         cost_parameters: parâmetros de custo por ``LayerId``.
+        discovery: resultado documental/derivado da inspeção estática (Fase 1).
+            Advisory: não altera o roteamento das camadas (Requisitos 4.5, 4.6,
+            5.1). Ausente no manifesto → ``DiscoveryInfo.empty()``.
+        expected_domain: domínio esperado do alvo (campo de julgamento).
+            Opcional; ``None`` quando ausente (Requisito 5.2).
+        golden_set: casos candidatos do golden set, na ordem declarada.
+            Opcional; tupla vazia quando ausente (Requisito 5.3).
     """
 
     target_ref: str
@@ -74,6 +83,9 @@ class QATargetManifest:
     applicable_layers: tuple[LayerId, ...] = ()
     risk_parameters: dict[LayerId, RiskParameters] = field(default_factory=dict)
     cost_parameters: dict[LayerId, CostParameters] = field(default_factory=dict)
+    discovery: DiscoveryInfo = field(default_factory=DiscoveryInfo.empty)
+    expected_domain: str | None = None
+    golden_set: tuple[GoldenCase, ...] = ()
 
     def risk_parameters_for(self, layer_id: LayerId) -> RiskParameters | None:
         """Retorna os parâmetros de risco de ``layer_id`` ou ``None``.
