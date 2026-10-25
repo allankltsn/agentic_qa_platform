@@ -1,0 +1,55 @@
+{
+  "status": "recommended_not_installed",
+  "policy": "policies/installations.md",
+  "checked_utc": "2026-10-17",
+  "note": "Popularity figures are GitHub stars read from the repository pages on the check date; they are a signal, not a safety proof. Install counts per plugin were not verified. Nothing here is installed by the template. Every install needs a proposal, a security read of the manifest/prompts/hooks/MCP commands, explicit user approval and a registry row.",
+  "marketplaces": [
+    {
+      "id": "claude-plugins-official",
+      "owner": "Anthropic",
+      "repo": "https://github.com/anthropics/claude-plugins-official",
+      "stars": 41300,
+      "add": "claude plugin marketplace add anthropics/claude-plugins-official",
+      "caveat": "Anthropic states it does not control what MCP servers, files or software a plugin contains; review before installing.",
+      "plugins": [
+        {"name": "superpowers", "install": "claude plugin install superpowers@claude-plugins-official", "serves": ["principal workflow engine: brainstorming, plans, subagent-driven development, verification, review"]},
+        {"name": "frontend-design", "install": "claude plugin install frontend-design@claude-plugins-official", "serves": ["frontend-senior", "ui-designer"]},
+        {"name": "code-review", "install": "claude plugin install code-review@claude-plugins-official", "serves": ["reviewer"]},
+        {"name": "claude-code-setup", "install": "claude plugin install claude-code-setup@claude-plugins-official", "serves": ["principal: recommends hooks, subagents and MCP for a codebase"]},
+        {"name": "github", "install": "claude plugin install github@claude-plugins-official", "serves": ["GitHub Projects and issues access; prefer gh CLI when available; needs a token, grant the narrowest scopes"]},
+        {"name": "playwright", "install": "claude plugin install playwright@claude-plugins-official", "serves": ["qa", "frontend-senior", "lay-user preparation: screenshots at required viewports and themes"]}
+      ]
+    },
+    {
+      "id": "knowledge-work-plugins",
+      "owner": "Anthropic",
+      "repo": "https://github.com/anthropics/knowledge-work-plugins",
+      "stars": 30000,
+      "add": "claude plugin marketplace add anthropics/knowledge-work-plugins",
+      "plugins": [
+        {"name": "marketing", "install": "claude plugin install marketing@knowledge-work-plugins", "serves": ["marketing", "brand-strategist"], "note": "content drafts, campaign plans, brand-voice enforcement, channel reports; connectors (Slack, Canva, Figma, HubSpot, Amplitude, Notion, Ahrefs, SimilarWeb, Klaviyo) are optional and need their own review and credentials"},
+        {"name": "product-management", "install": "claude plugin install product-management@knowledge-work-plugins", "serves": ["product-owner", "ux-researcher"], "note": "specs, roadmaps, research synthesis, stakeholder updates"},
+        {"name": "data", "install": "claude plugin install data@knowledge-work-plugins", "serves": ["product-owner", "marketing"], "note": "analysis and dashboards for experiment results"},
+        {"name": "legal", "install": "claude plugin install legal@knowledge-work-plugins", "serves": ["privacy-compliance"], "note": "assists triage only; qualified counsel decides LEGAL-REVIEW items"}
+      ],
+      "unverified": "A design folder exists in the repository but its purpose was not described on the page; inspect before relying on it."
+    },
+    {
+      "id": "voltagent-subagents",
+      "owner": "VoltAgent community",
+      "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+      "stars": 25800,
+      "license": "MIT",
+      "add": "claude plugin marketplace add VoltAgent/awesome-claude-code-subagents",
+      "plugins": [
+        {"name": "voltagent-core-dev", "install": "claude plugin install voltagent-core-dev", "serves": ["ui-designer: ui-designer", "frontend-senior: frontend-developer", "design-bridge for replicating a documented brand"]},
+        {"name": "voltagent-biz", "install": "claude plugin install voltagent-biz", "serves": ["ux-researcher: ux-researcher", "product-owner: product-manager, backlog-grooming, assumption-mapping", "marketing: content-marketer, landing-page-copywriter, growth-loops", "content-quality-editor before publishing"]},
+        {"name": "voltagent-lang", "install": "claude plugin install voltagent-lang", "serves": ["frontend-senior: react-specialist, vue-expert, angular-architect, nextjs-developer, typescript-pro"]},
+        {"name": "voltagent-qa-sec", "install": "claude plugin install voltagent-qa-sec", "serves": ["qa: accessibility-tester, ui-ux-tester"]},
+        {"name": "voltagent-domains", "install": "claude plugin install voltagent-domains", "serves": ["marketing: seo-specialist"]}
+      ],
+      "gaps": ["No dedicated brand agent exists in this catalog: brand-strategist stays a canonical template role.", "visual-asset-generator (voltagent-dev-exp) depends on a third-party MCP server for image generation: security review required before any use."],
+      "rule": "Catalog agents supplement canonical roles; they never replace a canonical contract without a recorded decision (workflow/staffing.md)."
+    }
+  ]
+}

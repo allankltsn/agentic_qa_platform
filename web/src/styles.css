@@ -1,0 +1,9 @@
+@import './brand/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply bg-bg font-sans text-body text-ink antialiased; }
+  body { min-height: 100dvh; }
+}

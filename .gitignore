@@ -1,62 +1,42 @@
-# === Segredos e ambiente local (NUNCA versionar) ===
+dist/
+node_modules/
+*.tar.gz
+
+# Segredos e ambiente local
 .env
 .env.*
 !.env.example
-*.env.local
-
-# Arquivos de segredos / credenciais locais
 *.pem
 *.key
-*.p12
-*.pfx
-secrets.json
-credentials.json
-*.secret
-*.secrets
+credentials*.json
 
-# === Artefatos de build/deploy AWS SAM ===
-.aws-sam/
-
-# === Ambientes virtuais Python ===
-.venv/
-venv/
-env/
-
-# === Artefatos Python ===
+# Dados locais e gerados do template
 __pycache__/
 *.py[cod]
-*.egg-info/
-.eggs/
-build/
-dist/
-
-# === Cache de testes / ferramentas ===
 .pytest_cache/
-.hypothesis/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
+.cache/
+.serena/cache/
+.serena/memories/
+.claude/settings.local.json
+.codex/config.local.toml
+.worktrees/
+.claude/worktrees/
+build/
 
-# === Registros por execução da eval de eficácia (observação, não versionar) ===
-tests/eval/.results/
-
-# === Relatórios de qualidade gerados (generate_quality_report.py) ===
-reports/
-code/reports/
-
-# === Lock do dev-tooling da raiz (sem dependências; reproduzível do pyproject) ===
-# O lock que importa é o da aplicação em code/uv.lock. Este é efêmero.
-/uv.lock
-
-# === Arquivos de commit gerados (fluxo commit_flow.py) ===
-# Cada commit é descrito em um arquivo próprio, efêmero e local. Versiona-se
-# apenas o modelo e o .gitkeep; o resto é ruído de trabalho.
-commits/*
-!commits/.gitkeep
-!commits/_TEMPLATE.md
-
-# === Diversos ===
-sh.exe.stackdump
-*.log
+# SO / editor
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs, cobertura e caches de ferramentas
+*.log
+npm-debug.log*
+pnpm-debug.log*
+coverage/
+*.tsbuildinfo
+.eslintcache
+.vite/
+.vitest/
+storybook-static/
+graphify-out/

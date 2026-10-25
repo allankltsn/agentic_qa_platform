@@ -1,0 +1,5 @@
+# Action: privacy
+Intent/scope: Quick LGPD/GDPR, consumer-protection and user-health review of a flow, screen set, copy or data model: data map, purposes and bases, sensitive data, minors, rights, retention and sharing, dark patterns, cancellation and price transparency, unsafe nudges, leakage in UI/logs/URLs. Without arguments review the complete change snapshot for personal-data impact.
+Responsible specialist: privacy-compliance; principal routes, questions and consolidates. The specialist is not a lawyer and marks [LEGAL-REVIEW] where qualified counsel is needed.
+Input: explicit focus, jurisdictions, criteria, business rules, project profiles, environment, permitted paths and snapshot/base.
+Output: findings with stable IDs, severity, principle/article, location, a compliant alternative that preserves the user's goal, coverage limits and next owner. Corrections return to the implementing specialist; the finding author confirms resolution independently. Common policies and workflow apply to standalone invocations too.

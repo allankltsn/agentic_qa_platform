@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1728" />
+    <meta name="description" content="Organize avaliações de qualidade de APIs, frontends e agentes em um único espaço." />
+    <title>Prisma QA · Workspace de validação</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação de projetos">
+        <div class="brand"><span class="brand-symbol" aria-hidden="true">✳</span><span>prisma<span class="brand-accent">qa</span><small>WORKSPACE</small></span></div>
+        <div class="sidebar-heading"><span>SEUS PROJETOS</span><button class="icon-btn sidebar-add" id="addProjectSide" aria-label="Criar avaliação">＋</button></div>
+        <div id="projectList" class="project-list"></div>
+        <div class="sidebar-bottom">
+          <div class="privacy-card"><span class="privacy-icon">◈</span><div><strong>Espaço privado</strong><p>Os dados desta versão ficam neste navegador. Exporte um backup quando precisar.</p></div></div>
+          <button class="sidebar-link" id="importBtn">↥ <span>Importar backup</span></button>
+          <button class="sidebar-link" id="exportBtn">↧ <span>Exportar backup</span></button>
+          <input id="importFile" type="file" accept="application/json,.json" hidden />
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar"><div class="breadcrumb">WORKSPACE <span>/</span> <strong id="crumbTitle">Avaliação</strong></div><select id="mobileProjects" class="mobile-projects" aria-label="Selecionar projeto"></select><div class="top-actions"><span class="save-indicator"><span class="save-dot"></span> Salvo neste navegador</span><button class="button button-primary" id="newProjectBtn">＋ Nova avaliação</button></div></header>
+        <div class="content-wrap">
+          <div class="eyebrow"><span class="eyebrow-line"></span> CENTRO DE QUALIDADE <span class="eyebrow-line"></span></div>
+          <section class="hero" aria-labelledby="projectTitle">
+            <div><div class="hero-meta"><span id="projectTypeBadge" class="type-badge">API</span><span id="projectDate"></span></div><h1 id="projectTitle"></h1><p id="projectDescription"></p><div class="hero-tags" id="heroTags"></div></div>
+            <div class="hero-actions"><button class="button button-soft" id="editProjectBtn">✎ Editar contexto</button><button class="button button-ghost-danger" id="deleteProjectBtn" title="Excluir projeto">Excluir</button></div>
+          </section>
+
+          <section class="metrics" aria-label="Indicadores da avaliação">
+            <div class="metric"><span class="metric-icon blue">◫</span><span class="metric-label">PROGRESSO DO CHECKLIST</span><div class="metric-value"><strong id="metricProgress">0%</strong><span id="metricProgressDetail">0 de 0 verificados</span></div><div class="progress-track"><div id="progressFill" class="progress-fill"></div></div></div>
+            <div class="metric"><span class="metric-icon amber">◇</span><span class="metric-label">ACHADOS EM ABERTO</span><div class="metric-value"><strong id="metricOpen">0</strong><span id="metricOpenDetail">Aguardando triagem</span></div></div>
+            <div class="metric"><span class="metric-icon rose">⚑</span><span class="metric-label">RISCO PRIORITÁRIO</span><div class="metric-value"><strong id="metricPriority">—</strong><span id="metricPriorityDetail">Sem achados críticos</span></div></div>
+          </section>
+
+          <section class="workspace" aria-label="Área de trabalho">
+            <div class="workspace-header"><div><div class="section-kicker">SUA AVALIAÇÃO</div><h2>Plano de validação</h2><p>Organize o que precisa ser testado e acompanhe os resultados.</p></div><button class="button button-outline" id="addFindingTop">＋ Registrar achado</button></div>
+            <div class="tabs" role="tablist" aria-label="Visualizações"><button class="tab active" role="tab" aria-selected="true" data-tab="overview">Visão geral</button><button class="tab" role="tab" aria-selected="false" data-tab="checklist">Checklist <span id="tabChecklistCount" class="tab-count"></span></button><button class="tab" role="tab" aria-selected="false" data-tab="findings">Achados <span id="tabFindingsCount" class="tab-count"></span></button></div>
+            <div id="tabContent" class="tab-content"></div>
+          </section>
+          <footer>PRISMA QA <span>·</span> Um espaço claro para decisões melhores sobre qualidade.</footer>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="projectDialog" class="dialog"><form id="projectForm" novalidate><div class="dialog-heading"><div><div class="section-kicker">CONFIGURAÇÃO</div><h2 id="projectDialogTitle">Nova avaliação</h2><p>Defina o contexto para montar um checklist adequado.</p></div><button type="button" class="close-btn" data-close aria-label="Fechar">×</button></div><div class="form-body"><label>Nome do projeto <input name="name" maxlength="80" required placeholder="Ex.: API de autenticação" /></label><div class="field"><span class="field-title">Tipo de projeto</span><div class="choice-grid" id="projectTypes"><label class="type-choice"><input type="radio" name="type" value="api" checked /><span class="choice-icon">⌘</span><strong>API</strong><small>Endpoints e serviços</small></label><label class="type-choice"><input type="radio" name="type" value="frontend" /><span class="choice-icon">▧</span><strong>Frontend</strong><small>Interfaces e jornadas</small></label><label class="type-choice"><input type="radio" name="type" value="agent" /><span class="choice-icon">✳</span><strong>Agente</strong><small>IA e ferramentas</small></label></div></div><div class="field"><span class="field-title">Categorias de teste</span><div class="category-options" id="categoryOptions"></div></div><label>Descrição e escopo <textarea name="description" rows="3" maxlength="600" placeholder="O que será avaliado? Quais fluxos estão no escopo?"></textarea></label><div class="form-row"><label>Stack ou ferramentas <input name="stack" maxlength="120" placeholder="Ex.: NestJS, PostgreSQL" /></label><label>URL ou referência <input name="reference" maxlength="300" placeholder="https://... ou link do repositório" /></label></div></div><div class="dialog-footer"><button type="button" class="button button-text" data-close>Cancelar</button><button type="submit" class="button button-primary">Salvar avaliação</button></div></form></dialog>
+
+    <dialog id="findingDialog" class="dialog"><form id="findingForm" novalidate><div class="dialog-heading"><div><div class="section-kicker">EVIDÊNCIA & AÇÃO</div><h2 id="findingDialogTitle">Registrar achado</h2><p>Descreva o problema para facilitar a correção e a retestagem.</p></div><button type="button" class="close-btn" data-close aria-label="Fechar">×</button></div><div class="form-body"><label>Título do achado <input name="title" maxlength="120" required placeholder="Ex.: Token de acesso não expira" /></label><div class="form-row"><label>Categoria <select name="category" id="findingCategory"></select></label><label>Severidade <select name="severity"><option value="critical">Crítica</option><option value="high">Alta</option><option value="medium" selected>Média</option><option value="low">Baixa</option></select></label></div><div class="form-row"><label>Status <select name="status"><option value="open">Aberto</option><option value="in_progress">Em correção</option><option value="resolved">Resolvido</option></select></label><label>Referência do teste <select name="itemId" id="findingItem"><option value="">Sem vínculo</option></select></label></div><label>Descrição e impacto <textarea name="description" rows="3" maxlength="2000" required placeholder="O que aconteceu? Qual o impacto?"></textarea></label><div class="form-row"><label>Como reproduzir <textarea name="steps" rows="3" maxlength="1500" placeholder="Passos, rota, ambiente..."></textarea></label><label>Evidência ou link <textarea name="evidence" rows="3" maxlength="1500" placeholder="Resultado observado, log, captura ou link..."></textarea></label></div></div><div class="dialog-footer"><button type="button" class="button button-text" data-close>Cancelar</button><button type="submit" class="button button-primary">Salvar achado</button></div></form></dialog>
+
+    <dialog id="itemDialog" class="dialog compact-dialog"><form id="itemForm"><div class="dialog-heading"><div><div class="section-kicker">CHECKLIST</div><h2>Adicionar verificação</h2></div><button type="button" class="close-btn" data-close aria-label="Fechar">×</button></div><div class="form-body"><label>O que precisa ser validado? <input name="title" required maxlength="180" placeholder="Ex.: Rotação de refresh token" /></label><label>Categoria <select name="category" id="itemCategory"></select></label></div><div class="dialog-footer"><button type="button" class="button button-text" data-close>Cancelar</button><button class="button button-primary">Adicionar</button></div></form></dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

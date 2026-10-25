@@ -1,0 +1,5 @@
+{
+  "description": "Stack-neutral core",
+  "id": "base",
+  "instructions": "No stack/cloud/database/framework/hosting selected by default. Principal always orchestrates. Qualified specialist selection uses domain/version/risk/phase. Independent QA, compliance review, technical review and security are mandatory for implementation; distinct author/gate identities. Read common policies/workflow."
+}

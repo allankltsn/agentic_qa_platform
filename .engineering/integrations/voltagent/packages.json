@@ -1,0 +1,14 @@
+{
+  "status": "configured_not_verified",
+  "marketplace": "voltagent-subagents",
+  "packages": [
+    "voltagent-core-dev@voltagent-subagents",
+    "voltagent-infra@voltagent-subagents",
+    "voltagent-lang@voltagent-subagents",
+    "voltagent-qa-sec@voltagent-subagents",
+    "voltagent-data-ai@voltagent-subagents",
+    "voltagent-dev-exp@voltagent-subagents",
+    "voltagent-biz@voltagent-subagents",
+    "voltagent-research@voltagent-subagents"
+  ]
+}

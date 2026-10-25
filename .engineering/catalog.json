@@ -1,0 +1,254 @@
+{
+  "actions": [
+    {
+      "description": "Run an adversarial QA pass on the current changes without going through the full feature workflow.",
+      "id": "qa",
+      "role": "qa"
+    },
+    {
+      "description": "Run a focused security audit on the current changes without going through the full feature workflow.",
+      "id": "security",
+      "role": "security"
+    },
+    {
+      "description": "Get an AWS infrastructure review or design proposal without going through the full feature workflow.",
+      "id": "aws",
+      "role": "aws"
+    },
+    {
+      "description": "Get a Hostinger deployment review, configuration proposal, or DevOps guidance without going through the full feature workflow.",
+      "id": "hosting",
+      "role": "hosting"
+    },
+    {
+      "description": "Run a Kubernetes cluster diagnostic without going through the full feature workflow.",
+      "id": "kubernetes",
+      "role": "kubernetes"
+    },
+    {
+      "description": "Get incident response support, SLO guidance, or runbook authoring without going through the full feature workflow.",
+      "id": "sre",
+      "role": "sre"
+    },
+    {
+      "description": "Diagnose a CI/CD pipeline failure or review a pipeline for deploy risks without going through the full feature workflow.",
+      "id": "cicd",
+      "role": "cicd"
+    },
+    {
+      "description": "Run an infrastructure security audit on IaC files without going through the full feature workflow.",
+      "id": "devsecops-infra",
+      "role": "devsecops-infra"
+    },
+    {
+      "description": "Write or refine a user story or epic with acceptance criteria, flows, assets, metadata, Definition of Ready and Definition of Done, ready for the GitHub Projects board.",
+      "id": "story",
+      "role": "product-owner"
+    },
+    {
+      "description": "Run a usability round with two simulated lay users, triage their reports and prepare the decision brainstorm without breaking business rules, LGPD or user-health constraints.",
+      "id": "usability",
+      "role": "ux-researcher"
+    },
+    {
+      "description": "Run a quick LGPD/GDPR, consumer-protection and user-health review of a flow, copy or data model without going through the full feature workflow.",
+      "id": "privacy",
+      "role": "privacy-compliance"
+    }
+  ],
+  "model_tiers": {
+    "deep": {
+      "claude": "opus",
+      "codex_effort": "high",
+      "use": "Hardest problems: cross-cutting architecture, security/privacy judgment, irreversible or production-impacting decisions, repeated failure of a lower tier."
+    },
+    "light": {
+      "claude": "haiku",
+      "codex_effort": "low",
+      "use": "Mechanical or low-context work: formatting, bookkeeping, simulated lay-user testing. Never for judgment that gates a release."
+    },
+    "standard": {
+      "claude": "sonnet",
+      "codex_effort": "medium",
+      "use": "Default for specialists doing their normal work: implementation, review, design, analysis."
+    }
+  },
+  "name": "engineering-template",
+  "retired_paths": [
+    ".engineering/templates/install-registry.md"
+  ],
+  "roles": [
+    {
+      "description": "Use when proposing or reviewing system architecture — new modules, service boundaries, build-vs-reuse, sync vs. async, queueing/orchestration choices, data and failure-mode design. Consulted during brainstorming and writing-plans, not during implementation.",
+      "id": "architect",
+      "mode": "review",
+      "tier": "deep"
+    },
+    {
+      "description": "Use when designing or reviewing AWS infrastructure — Lambda, API Gateway, Cognito, S3, and infrastructure-as-code in SAM or Terraform. Consulted for architecture proposals involving AWS and for infrastructure implementation tasks. Also available directly via /aws.",
+      "id": "aws",
+      "mode": "implementer",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when implementing or modifying server-side application code — APIs, controllers, services, validation, authentication/authorization, persistence and migrations — in the stack the selected profile confirms (Node.js/NestJS/MikroORM knowledge applies with the nestjs-mikroorm profile). Consulted during executing-plans / subagent-driven-development.",
+      "id": "backend",
+      "mode": "implementer",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for CI/CD pipeline issues — failure diagnosis, rollback recommendations, deploy risk analysis, PR gate configuration, artifact management, and pipeline optimization. Invoked when a pipeline fails, a deployment was rolled back unexpectedly, build times are too long, or a new pipeline needs design review. Also available via /cicd.",
+      "id": "cicd",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for multi-cloud architecture decisions, cloud service selection trade-offs, Well-Architected reviews, and migration planning across AWS, GCP, and Azure. Invoked when choosing between cloud services, planning a migration, reviewing multi-region or multi-cloud designs, or assessing architecture against the Well-Architected pillars. Complements the existing `aws` agent (which implements AWS-specific SAM/Lambda/Cognito code); this agent decides WHICH services to use and WHY.",
+      "id": "cloud",
+      "mode": "diagnostic",
+      "tier": "deep"
+    },
+    {
+      "description": "Use for deployment strategy decisions and execution planning — selecting between blue/green, canary, rolling, and recreate strategies; configuring Argo Rollouts or Flagger; defining release gates and automated analysis metrics; and reviewing rollout health. Invoked when choosing a deployment strategy, when a canary or blue/green rollout is stuck, or when automated promotion criteria need design.",
+      "id": "deployment",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for infrastructure security audits — scanning Terraform, SAM, CloudFormation, and Helm charts for misconfigurations; detecting secrets committed in IaC files; auditing IAM policies for least-privilege violations; and identifying compliance gaps in cloud resource definitions. This agent covers INFRASTRUCTURE layer security only. For application-layer security (NestJS auth, injection, IDOR), use the `security` agent instead. Also available via /devsecops-infra.",
+      "id": "devsecops-infra",
+      "mode": "diagnostic",
+      "tier": "deep"
+    },
+    {
+      "description": "Use for Docker container issues — Dockerfile review and optimization, multi-stage build design, image security scanning, layer analysis, Docker Compose review, and container registry management (ECR, GHCR, Docker Hub). Invoked when builds are slow, images are oversized, containers fail to start, or a Dockerfile needs a security or best-practice audit.",
+      "id": "docker",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for cloud cost analysis, rightsizing recommendations, waste identification (idle resources, over-provisioned instances, orphaned volumes and snapshots), and tagging policy enforcement. Invoked when the AWS bill has an unexpected spike, when a service's cost-to-value ratio needs review, or when planning a cost reduction initiative.",
+      "id": "finops",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when designing, reviewing, or troubleshooting deployment on Hostinger — domain/DNS (<project-domain>), SSL, reverse proxy (LiteSpeed/Apache), Node.js app lifecycle, PM2, environment variables, CDN, dedicated IP, email, and resource tuning. Consulted for any deployment, server config, or infrastructure task on the Hostinger stack. Also available directly via /hosting.",
+      "id": "hosting",
+      "mode": "implementer",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for ingress controller configuration, load balancer setup, TLS certificate management, routing rules, rate limiting, WAF configuration, and security headers. Invoked when configuring Nginx, Traefik, AWS ALB/NLB, API Gateway, or Kubernetes Ingress/Gateway API resources; when TLS is misconfigured; or when traffic is not routing as expected.",
+      "id": "ingress",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for Kubernetes cluster troubleshooting, pod health, HPA scaling, RBAC issues, deployment failures, node pressure, and auto-healing recommendations. Invoked when pods are CrashLoopBackOff, Pending, OOMKilled, or Evicted; when deployments are stuck; when resource quotas are hit; or when cluster configuration needs review. Also available via /kubernetes.",
+      "id": "kubernetes",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for service mesh configuration, mTLS between services, traffic management, circuit breakers, retries, fault injection, and canary traffic splitting at the mesh layer. Invoked when configuring Istio, Linkerd, or Consul Connect; when services cannot connect due to mTLS errors; when traffic weights need adjustment; or when a service mesh health check fails.",
+      "id": "orchestration",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when implementing or modifying Python backend code. The framework varies by project (FastAPI, Django, Flask, plain scripts, AI/Bedrock agent code) — ask or detect from the codebase before assuming one.",
+      "id": "python",
+      "mode": "implementer",
+      "tier": "standard"
+    },
+    {
+      "description": "Use before marking a feature or fix complete, as part of verification-before-completion. Adversarial QA — tries to break the implementation rather than confirm it works. Also available directly via /qa.",
+      "id": "qa",
+      "mode": "qa",
+      "tier": "standard"
+    },
+    {
+      "description": "Use for a focused security audit of code or infrastructure changes — authentication, authorization, injection, secrets handling, IAM. Consulted alongside qa in verification-before-completion, and directly via /security.",
+      "id": "security",
+      "mode": "review",
+      "tier": "deep"
+    },
+    {
+      "description": "Use for production incident response, SLO/SLI definition, error budget tracking, runbook authoring, postmortem facilitation, and alert tuning. Invoked during an active outage, when planning reliability targets for a service, when writing or improving a runbook, or when alert noise is too high. Also available via /sre.",
+      "id": "sre",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Independent compliance and qualified technical review.",
+      "id": "reviewer",
+      "mode": "review",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when turning an idea, request or business goal into prioritized epics and user stories with acceptance criteria, flows, assets, metadata, Definition of Ready and Definition of Done, or when grooming and prioritizing a backlog. Authors artifacts, never code. Also available via /story.",
+      "id": "product-owner",
+      "mode": "author",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when planning or running usability rounds, building personas, defining test tasks and metrics, triaging reports from simulated lay users, or running heuristic and cognitive-walkthrough reviews. Moderates the post-round decision brainstorm. Also available via /usability.",
+      "id": "ux-researcher",
+      "mode": "diagnostic",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when designing user flows, information architecture, wireframes, interaction patterns, screen states (empty, loading, error, success), content design and accessibility (WCAG 2.2 AA) before or alongside implementation.",
+      "id": "ux-designer",
+      "mode": "author",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when defining visual design, design tokens, themes (light/dark), typography, spacing, responsive behavior, component libraries and design-system rules, and when specifying assets for implementation.",
+      "id": "ui-designer",
+      "mode": "author",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when defining or auditing brand identity: positioning, personality, voice and tone, naming, logo and color usage rules, brand guidelines and asset checklists, and consistency of copy and visuals with the brand.",
+      "id": "brand-strategist",
+      "mode": "author",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when defining audience segments, positioning and messaging hierarchy, landing and funnel copy, SEO basics, campaign plans, channels, experiments and growth metrics. Consults privacy-compliance for tracking and consent, and brand-strategist for voice.",
+      "id": "marketing",
+      "mode": "author",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when implementing or modifying user interfaces from approved design specs: components, state, accessibility, responsiveness, performance budgets, resilience (loading, error, offline) and UI tests, in whichever frontend stack the selected profile confirms.",
+      "id": "frontend-senior",
+      "mode": "implementer",
+      "tier": "standard"
+    },
+    {
+      "description": "Use when a feature, flow, copy or data model collects, shows, shares or retains personal or health-related data, or when a usability decision may conflict with LGPD/GDPR, consumer-protection or user-health duties. Holds the veto in usability brainstorms. Also available via /privacy. Not legal advice.",
+      "id": "privacy-compliance",
+      "mode": "diagnostic",
+      "tier": "deep"
+    },
+    {
+      "description": "Use to simulate a non-technical person performing tasks on screens or flows and reporting where they hesitated, failed or felt afraid. Always dispatched as two instances with distinct personas. Never given code, tokens, contracts or technical hints.",
+      "id": "lay-user",
+      "mode": "review",
+      "tier": "light"
+    },
+    {
+      "description": "Use for mechanical bookkeeping from structured input: formatting LOG entries, issue bodies, evidence indexes, changelogs and status summaries. Makes no technical, product or approval judgments.",
+      "id": "scribe",
+      "mode": "author",
+      "tier": "light"
+    }
+  ],
+  "skills": [
+    "drawio-diagram"
+  ],
+  "version": "1.1.0"
+}

@@ -1,0 +1,10 @@
+{
+  "profiles": [
+    "base",
+    "product-team"
+  ],
+  "providers": [
+    "claude",
+    "codex"
+  ]
+}

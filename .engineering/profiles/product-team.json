@@ -1,0 +1,5 @@
+{
+  "description": "Product, UX/UI, brand, marketing and senior frontend delivery with usability rounds",
+  "id": "product-team",
+  "instructions": "Apply workflow/user-stories.md, workflow/usability.md and policies/quality-principles.md. Stories are written by product-owner with DoR/DoD, business-rules registry (BR ids), assets, links and metadata. User-facing work is designed by ux-designer and ui-designer, branded by brand-strategist, worded under the brand voice, implemented by frontend-senior (confirm the real stack) and validated by QA, review, security and privacy-compliance. Every user-facing flow gets a usability round with exactly two lay-user instances on the lightest tier and distinct personas, then a decision brainstorm where precedence is user safety and privacy law, then crucial business rules, then usability, then copy, then preference. Items needing legal judgment are marked LEGAL-REVIEW for the human. No dark patterns; cancellation as easy as signup; health-related products avoid unsafe nudges. Simulated lay users do not replace real-user validation for high-risk flows."
+}

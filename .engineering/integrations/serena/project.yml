@@ -1,0 +1,11 @@
+project_name: portable-engineering
+language_servers: []
+encoding: utf-8
+ignore_all_files_in_gitignore: true
+ls_workspace_folders: ["."]
+ls_additional_workspace_folders: []
+ignored_paths: [".worktrees/**", ".claude/worktrees/**", "node_modules/**", ".venv/**"]
+read_only: false
+excluded_tools: []
+included_optional_tools: []
+initial_prompt: ""

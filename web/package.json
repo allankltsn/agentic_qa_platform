@@ -1,0 +1,49 @@
+{
+  "name": "@prisma-qa/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint . --max-warnings 0",
+    "check:ui": "node scripts/check-ui-boundary.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@tanstack/react-query": "^5.59.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "react": "^18.3.1",
+    "react-aria-components": "1.4.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "react-router": "^7.18.4",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.16.0",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "~3.4.14",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.18.0",
+    "vite": "^6.4.3",
+    "vitest": "^3.2.6"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": { "node": ">=22" }
+}

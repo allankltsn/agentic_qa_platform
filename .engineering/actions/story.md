@@ -1,0 +1,6 @@
+# Action: story
+Intent/scope: Write or refine one user story or epic from a request: narrative, business rules, Given/When/Then criteria, flow, states, non-functional needs, assets and links, metadata, dependencies, Definition of Ready and Definition of Done, estimate and priority, in the form of templates/user-story.md and workflow/user-stories.md. Without arguments groom the open backlog items most in need of refinement.
+Responsible specialist: product-owner; principal routes, asks the human the open questions and consolidates.
+Input: the request or issue link, personas, existing rules registry, designs and prior stories, project profiles and the board configuration.
+Output: story body ready to create as a GitHub issue in the Project (or updated issue text), rules registry delta, open questions with recommended answers, prioritization inputs. The specialist does not create issues unless the brief grants it; otherwise it returns the complete body for the principal to persist.
+INVEST check is mandatory. A story failing Definition of Ready is returned with the reason, never dispatched. Consult architect for feasibility, qa for testability and privacy-compliance when personal or health data, consent, payment or tracking is involved. Common policies and workflow apply to standalone invocations too.
